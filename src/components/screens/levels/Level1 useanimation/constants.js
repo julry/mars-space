@@ -1,5 +1,4 @@
 export const LEAVE_DURATION_SEC = 1.3;
-export const FULL_MOVE_SEC = 4.5;
 
 export const ITEMS = [
     {
@@ -10,8 +9,7 @@ export const ITEMS = [
             src: '',
             height: 129,
             width: 170,
-        },
-        text: 'Укажи образование',
+        }
     },
     {
         id: 1,
@@ -22,8 +20,7 @@ export const ITEMS = [
             src: '',
             height: 129,
             width: 169,
-        },
-        text: 'Напиши про релевантный опыт',
+        }
     },
     {
         id: 2,
@@ -34,20 +31,17 @@ export const ITEMS = [
             src: '',
             height: 129,
             width: 169,
-        },
-        text: 'Расскажи\nо достижениях',
+        }
     }, 
     {
         id: 3,
         bg: 'black',
         height: 60,
-        text: 'Выдели\nключевые навыки',
     }, 
     {
         id: 4,
         bg: 'orange',
         height: 47,
-        text: 'Добавь\nконтакты и фото',
     }, 
 ];
 
@@ -57,7 +51,3 @@ export const BLOCK_WIDTH_KOEF = 0.9;
 export const BLOCK_WIDTH = 240;
 
 export const NEXT_BLOCK_TIMEOUT = 100;
-export const SPRING_TRANSITION = {
-    type: "spring",
-    damping: 20
-}
