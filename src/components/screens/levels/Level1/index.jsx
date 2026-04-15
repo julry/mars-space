@@ -71,7 +71,7 @@ export const Level1 = () => {
     const blockWidth = useRef(0);
     const fallenY = useRef(0);
     const isReturningRef = useRef(false);
-    const [xBlocks, setXBlocks] = useState([]);
+    const [xBlocks, setXBlocks] = useState();
     const x = useMotionValue(0);
     const x1 = useMotionValue(0);
 
@@ -121,27 +121,40 @@ export const Level1 = () => {
             clearTimeout(timeoutRef.current);
         }
 
+        controls.stop();
+
+        if (xBlocks !== undefined) {
+            const dist = Math.abs(x.get() - xBlocks);
+
+            if (dist > blockWidth.current) {
+                setIsFailed(true);
+
+                itemControls.start({
+                    y: fallenY.current - ITEMS[currentItem].height,
+                    x: [x.get(), x.get()],
+                    transition: {
+                        type: "spring",
+                        damping: 20
+                    }
+                });
+
+                return;
+            }
+        }
+
+        if (currentItem === 0) {
+            setXBlocks(x.get());
+        }
+        
         itemControls.start({
             y: getYPosition(currentItem),
+            x: [x.get(), xBlocks ?? x.get()],
             transition: {
                 type: "spring",
                 damping: 20
             }
         })
 
-        controls.stop();
-
-        setXBlocks(prev => [...prev, x.get()]);
-
-        if (xBlocks.length > 0) {
-            const dist = Math.abs(x.get() - xBlocks[xBlocks.length - 1]);
-
-            if (dist > blockWidth.current) {
-                setIsFailed(true);
-
-                return;
-            }
-        }
         controls.start({
             x: -1 * initialXRight.current - blockWidth.current,
             transition: { duration: LEAVE_DURATION_SEC, ease: "easeInOut" }
@@ -245,7 +258,6 @@ export const Level1 = () => {
                         $ratio={ratio}
                         initial={{ y: 0 }}
                         animate={itemControls}
-                        style={xBlocks[currentItem] !== undefined ? {x: xBlocks[currentItem]} : {x: x1}}
                         $isHidden={!isFalling}
                         $bg={ITEMS[currentItem]?.bg}
                         $height={ITEMS[currentItem]?.height * ratio}
@@ -257,7 +269,7 @@ export const Level1 = () => {
                                 $bg={item.bg}
                                 $zIndex={index}
                                 $height={item.height * ratio}
-                                initial={{ y: getYPosition(index), x: xBlocks[index] }}
+                                initial={{ y: getYPosition(index), x: (xBlocks ?? 0) }}
                             />
                         )
                     )}

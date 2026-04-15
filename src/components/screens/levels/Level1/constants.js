@@ -26,7 +26,7 @@ export const ITEMS = [
         id: 2,
         bg: 'green',
         height: 68,
-        y: 78,
+        y: 155,
         holding: {
             src: '',
             height: 129,
