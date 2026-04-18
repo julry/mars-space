@@ -5,10 +5,12 @@ import { ITEMS, LEAVE_DURATION_SEC, BLOCK_BOTTOM_POSITION, BLOCK_WIDTH,
 } from './constants';
 import { MIN_MOCKUP_WIDTH } from '../../../ScreenTemplate';
 import { useSizeRatio } from '../../../../contexts/SizeRatioContext';
+import { useProgress } from '../../../../contexts/ProgressContext';
 
 export const useGame = () => {
     const controls = useRef();
     const ratio = useSizeRatio();
+    const { next } = useProgress();
     const [scope, animate] = useAnimate();
     const [rocketScope, animateRocket] = useAnimate();
     const [scopeItem, animateItem] = useAnimate();
@@ -27,17 +29,19 @@ export const useGame = () => {
     const durationK = useRef(0);
     const initialXBlock = useRef(0);
     const isReturningRef = useRef(false);
-    const [xBlocks, setXBlocks] = useState([]);
+    const [xBlocks, setXBlocks] = useState();
     const x = useMotionValue(0);
 
     useEffect(() => {
-        setBlockWidth((window.innerWidth < MIN_MOCKUP_WIDTH ? BLOCK_WIDTH_KOEF : 1) * BLOCK_WIDTH * ratio);
+        const initialBlockWidth = (window.innerWidth < MIN_MOCKUP_WIDTH ? BLOCK_WIDTH_KOEF : 1) * BLOCK_WIDTH * ratio;
+        setBlockWidth(initialBlockWidth);
         initialXRight.current = (window.innerWidth >= MIN_MOCKUP_WIDTH ? MIN_MOCKUP_WIDTH : window.innerWidth) / 2;
         const gameHeight = (window.innerWidth >= MIN_MOCKUP_WIDTH ? 677 : window.innerHeight);
         const spacing = BLOCK_BOTTOM_POSITION * ratio;
         initialXBlock.current = (window.innerWidth >= MIN_MOCKUP_WIDTH ? 255 : scope.current.getBoundingClientRect().left);
         durationK.current = (2 * initialXRight.current) / MIN_MOCKUP_WIDTH;
         fallenY.current = gameHeight - spacing;
+        x.set(-initialBlockWidth / 2)
     }, [ratio])
 
     const getYPosition = (index) => {
@@ -51,7 +55,7 @@ export const useGame = () => {
 
     const getIsMissing = () => {
         const actualX = x.get() + (blockWidth - ITEMS[currentItem].actualWidth * ratio) / 2;
-        const actualXPrevious = xBlocks[currentItem - 1] + (blockWidth -  ITEMS[currentItem - 1].actualWidth * ratio) / 2;
+        const actualXPrevious = xBlocks + (blockWidth -  ITEMS[currentItem - 1].actualWidth * ratio) / 2;
 
         const dist = Math.abs(actualX - actualXPrevious);
 
@@ -73,16 +77,17 @@ export const useGame = () => {
         isReturningRef.current = false;
         setIsFalling(true);
 
-        controls.current.pause();
+        controls.current?.pause?.();
 
-        if (xBlocks[currentItem - 1] !== undefined) {
+        if (xBlocks !== undefined) {
             const shouldFall = getIsMissing(x.get(), ITEMS[currentItem]);
 
             // TODO: поправить с учетом того что объекты меньше чем blockWidth
             if (shouldFall) {
+                const itemSpacing = (ITEMS[currentItem].height + ITEMS[currentItem].top) * ratio;
                 animateItem(scopeItem.current,
                     {
-                        y: [0, fallenY.current - ITEMS[currentItem].height * ratio],
+                        y: [0, fallenY.current - itemSpacing],
                         x: [x.get(), x.get()],
                     }, 
                     SPRING_TRANSITION
@@ -91,15 +96,16 @@ export const useGame = () => {
 
                 return;
             }
+        } else {
+            setXBlocks(x.get())
         }
 
-        controls.current.stop();
-        setXBlocks(prev => [...prev, x.get()]);
-        
+        controls.current?.stop?.();
+
         animateItem(scopeItem.current,
             {
                 y: [0, getYPosition(currentItem)],
-                x: [x.get(), xBlocks[0] ?? x.get()],
+                x: [x.get(), xBlocks ?? x.get()],
             }, 
             SPRING_TRANSITION
         ).then(() => setTextId(prev => prev + 1));
@@ -112,11 +118,13 @@ export const useGame = () => {
     };
 
     const handleMove = () => {
+        const difference = (blockWidth - ITEMS[currentItem + 1].actualWidth * ratio) / 2;
+
         controls.current = animate(scope.current, {
-            x: [initialXRight.current - blockWidth, -initialXRight.current, initialXRight.current - blockWidth],
+            x: [initialXRight.current - blockWidth + difference, -initialXRight.current - difference, initialXRight.current - blockWidth + difference],
         }, {
                 repeat: Infinity,
-                duration: FULL_MOVE_SEC * durationK.current,
+                duration: FULL_MOVE_SEC * durationK.current * (1 + difference / blockWidth),
                 ease: 'linear',
                 repeatType: 'mirror'
             },);
@@ -133,14 +141,15 @@ export const useGame = () => {
         setIsFalling(false);
         setCurrentItem(prev => prev + 1);
 
-        //TODO: think about edges
+        const difference = (blockWidth - ITEMS[currentItem + 1].actualWidth * ratio) / 2;
+
         setTimeout(() => {
             animate(scope.current,
                 {
-                    x: [initialXRight.current, initialXRight.current - blockWidth],
+                    x: [initialXRight.current, initialXRight.current - blockWidth + difference],
                 }, 
                 {
-                    duration: 1 * durationK.current,
+                    duration: 1 * durationK.current * (1 + difference / blockWidth),
                     ease: 'linear',
                 },
             ).then(() => {
@@ -153,26 +162,28 @@ export const useGame = () => {
 
     const handleStart = async () => {
         setIsStarted(true);
-        const duration = durationK.current * FULL_MOVE_SEC * 1.25; 
+        // ??: moving first detail
+
+        // const duration = durationK.current * FULL_MOVE_SEC * 1.25; 
 
         // TODO: duration based on screen size;
-        controls.current = animate(scope.current, {
-            x: [-blockWidth / 2, -initialXRight.current, initialXRight.current - blockWidth],
-        }, {
-                duration,
-                times: [0, 0.25, 1],
-                ease: 'linear',
-        },);
+        // controls.current = animate(scope.current, {
+        //     x: [-blockWidth / 2, -initialXRight.current, initialXRight.current - blockWidth],
+        // }, {
+        //         duration,
+        //         times: [0, 0.25, 1],
+        //         ease: 'linear',
+        // },);
 
-        controls.current.then(() => {
-            handleMove();
-        })
+        // controls.current.then(() => {
+        //     handleMove();
+        // })
     }
 
     const returnToBlock = () => {
         animateItem(scopeItem.current, 
             {
-                y: 0,
+                y: -18 * ratio,
             }, 
             SPRING_TRANSITION
         ).then(() => {
@@ -191,7 +202,7 @@ export const useGame = () => {
             }, {
                 duration: 5.6,
                 ease: 'linear',
-            });}, 
+            }).then(next)}, 
             ROCKET_MOVE_DELAY_SEC * 1000);
     }
 

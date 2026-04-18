@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { AnimatePresence, motion, } from "framer-motion";
-import {ITEMS, BLOCK_WIDTH, ROCKET_MOVE_DELAY_SEC, BLOCK_WIDTH_KOEF} from './constants';
+import { ITEMS, ROCKET_MOVE_DELAY_SEC } from './constants';
 import { Modal } from "../../../shared/Modal";
 import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";
-import {MIN_MOCKUP_WIDTH} from '../../../ScreenTemplate';
 import { useGame } from "./useGame";
 import { useState } from "react";
 import bg from '../../../../assets/images/bgLevel1.png';
+import path from '../../../../assets/images/pathLong.png';
 import bgDesk from '../../../../assets/images/bgLevel1Desk.png';
 import { media } from "../../../../constants/media";
 
@@ -115,13 +115,13 @@ const BgLayer = styled(motion.div)`
 `;
 
 
-const Lights = styled(motion.div)`
+const Lights = styled(motion.img)`
     position: absolute;
     bottom: ${({$ratio}) => $ratio * -150}px;
     left: 50%;
     width: ${({$ratio}) => $ratio * 236}px;
     height: ${({$ratio}) => $ratio * 299}px;
-    background-color: rgba(255, 255, 255, 0.5);
+    object-fit: contain;
     z-index: 0;
 `;
 
@@ -187,7 +187,7 @@ export const Level1 = () => {
                         $top={ITEMS[currentItem].top * ratio}
                         initial={{ x: '-50%' }}
                         $width={blockWidth}
-                        $isHidden={isFalling}
+                        $isHidden={isFalling || isShownLights}
                         $bg={ITEMS[currentItem]?.bg}
                         $height={ITEMS[currentItem]?.height * ratio}
                     />
@@ -198,7 +198,7 @@ export const Level1 = () => {
                     $top={ITEMS[currentItem].top * ratio}
                     $ratio={ratio}
                     initial={{ y: 0 }}
-                    $isHidden={!isFalling}
+                    $isHidden={!isFalling || isEnded || isShownLights}
                     $width={blockWidth}
                     $bg={ITEMS[currentItem]?.bg}
                     $height={ITEMS[currentItem]?.height * ratio}
@@ -213,7 +213,7 @@ export const Level1 = () => {
                             $width={blockWidth}
                             $top={item.top * ratio}
                             $height={item.height * ratio}
-                            style={{y: getYPosition(index), x: (xBlocks[0] ?? '-50%')}}
+                            style={{y: getYPosition(index), x: (xBlocks ?? '-50%')}}
                             animate={ isShownLights ? {y: getYPosition(index) - 150 * ratio} : {}}
                             transition={{delay: 0.5, duration: 0.5}}
                         />
@@ -222,17 +222,21 @@ export const Level1 = () => {
                 <AnimatePresence>
                     {
                         isShownLights && (
-                            <Lights $ratio={ratio} animate={ isShownLights ? {y: -150 * ratio, opacity: 1 } : {opacity: 1}} 
+                            <Lights 
+                                $ratio={ratio} 
+                                src={path}
+                                animate={ isShownLights ? {y: -150 * ratio, opacity: 1 } : {opacity: 1}} 
                                 initial={{opacity: 0, x: '-50%'}}
                                 transition={ {
                                     y:{delay: ROCKET_MOVE_DELAY_SEC - 0.2, duration: 0.5},
                                     opacity:{ delay: ROCKET_MOVE_DELAY_SEC - 0.5, duration: 0.5},
                                 }}
+                                alt=""
                             />
                         )
                     }
                     {
-                        textId > 0 && !isEnded && (
+                        textId > 0 && !isEnded && !isShownLights && (
                             <TextBlock
                                 $ratio={ratio}
                                 key={textId} 
