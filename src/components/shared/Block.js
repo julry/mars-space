@@ -13,6 +13,8 @@ const Wrapper = styled.div`
     background-color: #fff;
     padding: ${({$ratio}) => $ratio * 26}px;
     max-width: ${({$ratio}) => $ratio * 335}px;
+    z-index: ${({$zIndex}) => $zIndex ?? 1};
+    font-weight: 500;
 
     &::after, &::before {
         content: '';
@@ -32,12 +34,13 @@ const Wrapper = styled.div`
     }
 `;
 
-export const Block = (props) => {
+export const Block = ({zIndex, ...props}) => {
     const ratio = useSizeRatio();
 
     return (
         <Wrapper 
             $ratio={ratio} 
+            $zIndex={zIndex}
             {...props}
         >
             {props.children}

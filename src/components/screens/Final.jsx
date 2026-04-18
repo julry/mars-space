@@ -16,11 +16,20 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
     padding-bottom: var(--spacing_x5);
+    padding-top: ${({$ratio}) => $ratio * 191}px;
     gap: var(--spacing_x3);
     background: url(${bg}) no-repeat 0 100%;
     background-size: cover;
+
+    ${media.desktop`
+        padding-top: ${({$ratio}) => $ratio * 243}px;
+    `}
+
+    & button {
+        position: relative;
+        z-index: 5;
+    }
 `;
 
 const TitleBlock = styled.div`
@@ -63,71 +72,59 @@ const Planet = styled.img`
 const Rocket = styled.img`
     position: absolute;
     transform: rotate(38deg);
-    bottom: ${({$ratio}) => $ratio * 206}px;
-    left: ${({$ratio}) => $ratio * 101}px;
+    bottom: ${({$ratio}) => $ratio * 48}px;
+    left: ${({$ratio}) => $ratio * 137}px;
     width: ${({$ratio}) => $ratio * 165}px;
     height: ${({$ratio}) => $ratio * 332}px;
     object-fit: contain;
     z-index: 2;
 
     ${media.desktop`
-        bottom: ${({$ratio}) => $ratio * 122}px;
-        left: ${({$ratio}) => $ratio * 247}px;
-        width: ${({$ratio}) => $ratio * 195}px;
-        height: ${({$ratio}) => $ratio * 392}px;
+        bottom: ${({$ratio}) => $ratio * 13}px;
+        left: auto;
+        right: ${({$ratio}) => $ratio * 109}px;
+        width: ${({$ratio}) => $ratio * 152}px;
+        height: ${({$ratio}) => $ratio * 305}px;
     `}
 `;
 
 const RocketPath = styled.img`
     position: absolute;
-    bottom: ${({$ratio}) => $ratio * 115}px;
-    left: ${({$ratio}) => $ratio * -91}px;
-    width: ${({$ratio}) => $ratio * 355}px;
-    height: ${({$ratio}) => $ratio * 355}px;
+    bottom: 0;
+    left:0;
+    width: ${({$ratio}) => $ratio * 273}px;
+    height: ${({$ratio}) => $ratio * 273}px;
     object-fit: contain;
 
     ${media.desktop`
-        bottom: 0;
-        left: 0;
-        width: ${({$ratio}) => $ratio * 456}px;
-        height: ${({$ratio}) => $ratio * 456}px;
+        bottom: -83px;
+        left: auto;
+        right: 98px;
+        width: ${({$ratio}) => $ratio * 355}px;
+        height: ${({$ratio}) => $ratio * 355}px;
     `}
 `;
 
-const PathPart = styled.svg`
-    position: absolute;
-    bottom: ${({$ratio}) => $ratio * 58}px;
-    left: 0;
-    width: ${({$ratio}) => $ratio * 69}px;
-    height: ${({$ratio}) => $ratio * 92}px;
-
-    ${media.desktop`
-        display: none;
-    `}
-`;
-
-export const Intro = () => {
+export const Final = () => {
     const {next} = useProgress();
     const ratio = useSizeRatio();
 
     return (
-        <Wrapper>
+        <Wrapper $ratio={ratio}>
             <Planet $ratio={ratio} src={planet} alt="" />
             <Rocket $ratio={ratio} src={rocket} alt="" />
             <RocketPath $ratio={ratio} src={pathStart} alt="" />
-            <PathPart $ratio={ratio} viewBox="0 0 69 92" fill="none" >
-                <path d="M48.9998 60.5L68.9998 34.5H-1.50015L-3.00015 40L-6.50015 37L-8.00015 0L-41.0002 91.5L48.9998 60.5Z" fill="#89ABD6"/>
-            </PathPart>
+           
             <TitleBlock>
                     <Title $ratio={ratio}>МИССИЯ:</Title>
                     <LogoStyled $ratio={ratio} src={logo} alt=""/>
             </TitleBlock>
             <Block zIndex={3}>
                 <p>
-                Чтобы покорить Марс, нужно быть настоящим лидером. Отправься в полёт, пройди 5 уровней и узнай, какие качества помогут тебе достигнуть цели
+                Ты прошёл большой путь и доказал, что вызовы и испытания тебя не пугают. Настало время стать частью команды, которая создает будущее
                 </p>
             </Block>
-            <Button onClick={next}>НА СТАРТ!</Button>
+            <Button onClick={next}>Стать лидером!</Button>
         </Wrapper>
     );
 }

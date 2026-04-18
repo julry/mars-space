@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { AnimatePresence, motion, } from "framer-motion";
-import {ITEMS, BLOCK_WIDTH, BLOCK_WIDTH_KOEF} from './constants';
+import {ITEMS, BLOCK_WIDTH, ROCKET_MOVE_DELAY_SEC, BLOCK_WIDTH_KOEF} from './constants';
 import { Modal } from "../../../shared/Modal";
 import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";
@@ -21,30 +21,25 @@ const Wrapper = styled.div`
 
 const HookItem = styled(motion.div)`
     position: absolute;
-    height: 100px;
-    background-color: yellow;
+    height: ${({$height}) => $height}px;
     left: 50%;
-    top: 0;
+    top: ${({ $ratio }) => $ratio * -18}px;
     width: ${({ $width }) => $width}px;
-
-    @media screen and (min-width: ${MIN_MOCKUP_WIDTH}px){
-        width: ${BLOCK_WIDTH}px;
-    }
+    z-index: 104;
 `;
 
 const HoldingItem = styled(motion.div)`
     position: absolute;
     left: 50%;
-    top: 100px;
+    top:  ${({$top}) => $top}px;
     width: ${({ $width }) => $width}px;
     height: ${({ $height }) => $height}px;
-    background-color: ${({ $bg }) => $bg};
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(${({ $bg }) => $bg});
     opacity: ${({ $isHidden }) => +(!$isHidden)};
     z-index: ${({$zIndex}) => $zIndex ?? 100};
-
-    @media screen and (min-width: ${MIN_MOCKUP_WIDTH}px){
-        width: ${BLOCK_WIDTH}px;
-    }
 `;
 
 const ButtonStyled = styled(Button)`
@@ -119,6 +114,30 @@ const BgLayer = styled(motion.div)`
     `}
 `;
 
+
+const Lights = styled(motion.div)`
+    position: absolute;
+    bottom: ${({$ratio}) => $ratio * -150}px;
+    left: 50%;
+    width: ${({$ratio}) => $ratio * 236}px;
+    height: ${({$ratio}) => $ratio * 299}px;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 0;
+`;
+
+
+const Hook = styled.div`
+    position: absolute;
+    inset: 0;
+    z-index: 106;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(${({ $bg }) => $bg});
+`;
+
 export const Level1 = () => {
     const ratio = useSizeRatio();
     const [isStartScreen, setIsStartScreen] = useState(true);
@@ -127,11 +146,9 @@ export const Level1 = () => {
         isEnded, 
         handleScreenClick,
         initialXRight,
-        restartAnimation,
         x,
         isFalling,
         currentItem,
-        handleCompleteItemAnimation,
         fallenItems,
         getYPosition,
         xBlocks,
@@ -140,12 +157,15 @@ export const Level1 = () => {
         scope,
         scopeItem,
         textId,
-        blockWidth
+        blockWidth,
+        rocketScope,
+        handleEndGame,
+        isShownLights,
     } = useGame(ratio);
 
     return (
         <>
-            <BgLayer />
+            <BgLayer ref={rocketScope}/>
             <AnimatePresence>
                 {!isEnded && (
                     <DarkenBlock exit={{opacity: 0}} />
@@ -155,14 +175,16 @@ export const Level1 = () => {
                 <HookItem 
                     $ratio={ratio}
                     ref={scope}
-                    key={ITEMS[currentItem]?.id}
+                    key={`hook_item_${ITEMS[currentItem]?.id}`}
+                    $height={ITEMS[currentItem]?.holding?.height * ratio}
                     $width={blockWidth}
                     initial={{ x: currentItem === 0 ? '-50%' : initialXRight.current }}
-                    onAnimationComplete={restartAnimation}
                     style={{x}}
                 >
+                    <Hook key={`hook_${currentItem}`} $bg={ITEMS[currentItem]?.holding?.src} />
                     <HoldingItem
                         $ratio={ratio}
+                        $top={ITEMS[currentItem].top * ratio}
                         initial={{ x: '-50%' }}
                         $width={blockWidth}
                         $isHidden={isFalling}
@@ -171,14 +193,14 @@ export const Level1 = () => {
                     />
                 </HookItem>
                 <HoldingItem
-                    key={{currentItem}}
+                    key={currentItem}
                     ref={scopeItem}
+                    $top={ITEMS[currentItem].top * ratio}
                     $ratio={ratio}
                     initial={{ y: 0 }}
                     $isHidden={!isFalling}
                     $width={blockWidth}
                     $bg={ITEMS[currentItem]?.bg}
-                    onAnimationComplete={handleCompleteItemAnimation}
                     $height={ITEMS[currentItem]?.height * ratio}
                 />
                 {fallenItems.map((item, index) => 
@@ -187,14 +209,28 @@ export const Level1 = () => {
                             key={`static-${item.id}-${currentItem}`}
                             $bg={item.bg}
                             $ratio={ratio}
-                            $zIndex={index}
+                            $zIndex={index + 1}
                             $width={blockWidth}
+                            $top={item.top * ratio}
                             $height={item.height * ratio}
-                            initial={{ y: getYPosition(index), x: (xBlocks ?? 0) }}
+                            style={{y: getYPosition(index), x: (xBlocks[0] ?? '-50%')}}
+                            animate={ isShownLights ? {y: getYPosition(index) - 150 * ratio} : {}}
+                            transition={{delay: 0.5, duration: 0.5}}
                         />
                     )
                 )}
                 <AnimatePresence>
+                    {
+                        isShownLights && (
+                            <Lights $ratio={ratio} animate={ isShownLights ? {y: -150 * ratio, opacity: 1 } : {opacity: 1}} 
+                                initial={{opacity: 0, x: '-50%'}}
+                                transition={ {
+                                    y:{delay: ROCKET_MOVE_DELAY_SEC - 0.2, duration: 0.5},
+                                    opacity:{ delay: ROCKET_MOVE_DELAY_SEC - 0.5, duration: 0.5},
+                                }}
+                            />
+                        )
+                    }
                     {
                         textId > 0 && !isEnded && (
                             <TextBlock
@@ -270,7 +306,7 @@ export const Level1 = () => {
 на пути к цели
                         </p>
                     </Block>
-                    <ButtonStyled onClick={() => setIsStartScreen(false)}>Вперёд!</ButtonStyled>
+                    <ButtonStyled onClick={handleEndGame}>Вперёд!</ButtonStyled>
                     </div>
             </Modal>
         </>

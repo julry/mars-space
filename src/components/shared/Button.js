@@ -12,6 +12,7 @@ const Wrapper = styled.button`
     max-width: ${({$ratio}) => $ratio * 335}px;
     cursor: pointer;
     color: #FFFFFF;
+    text-transform: uppercase;
 
     &::after, &::before {
         content: '';
