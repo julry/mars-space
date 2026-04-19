@@ -13,19 +13,19 @@ const Wrapper = styled(motion.div)`
 `;
 
 export function ScreenContent() {
-    const {screen: Screen, currentScreen} = useProgress();
+    const {screen: Screen, currentScreenIndex} = useProgress();
 
     useImagePreloader([]);
 
     return Screen && (
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
             <Wrapper
-                key={currentScreen}
+                key={`currentScreen_${currentScreenIndex}`}
                 initial={{opacity: 0}}
                 animate={{ opacity: 1 }}
                 exit={{opacity: 0}}
                 transition={{
-                    duration: 0.35
+                    duration: 0.35,
                 }}
             >
                <Screen />

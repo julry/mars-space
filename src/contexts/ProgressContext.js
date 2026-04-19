@@ -44,7 +44,8 @@ export function ProgressProvider(props) {
     const state = {
         screen,
         next,
-        registrateEmail
+        registrateEmail,
+        currentScreenIndex
     }
 
     return (
