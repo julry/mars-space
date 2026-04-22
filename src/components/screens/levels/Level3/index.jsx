@@ -343,7 +343,7 @@ export const Level3 = () => {
                 {isButtonsBlock && (
                     <ButtonsBlock>
                         <Button onClick={next}>Продолжить полет</Button>
-                        <Button onClick={() => window.open('', '_blank')}>к программе</Button>
+                        <Button onClick={() => window.open('https://fut.ru/s/internship_curiosity', '_blank')}>к программе</Button>
                     </ButtonsBlock>
                 )}
             </AnimatePresence>
