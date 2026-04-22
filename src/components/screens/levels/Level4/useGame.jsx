@@ -238,6 +238,7 @@ export const useGame = () => {
         if (!getIsTouchDevice()) {
             return;
         }
+        // TODO: check ipad;
 
         if (!educationRef.current) {
             educationRef.current = true;

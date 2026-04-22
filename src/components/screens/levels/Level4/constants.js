@@ -312,7 +312,7 @@ export const crushTexts = {
     [CRUSH_TEXT_TYPE.common]: {
         text: 'Осторожнее! Чтобы продолжить путь, ответь на вопрос от HR',
         svgSizes: [321, 129],
-        svg: <svg width="321" height="129" viewBox="0 0 321 129" fill="none" xmlns="http://www.w3.org/2000/svg">
+        svg: <svg width="100%" height="100%" viewBox="0 0 321 129" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_f_64_298082)" data-figma-bg-blur-radius="6.84513">
             <path d="M287.053 64.0328C344.371 119.987 235.846 96.8136 156.655 109.521C47.3869 117.284 -5.53159 95.7823 26.2564 64.0328C0.287188 28.1518 53.4918 11.9788 156.655 18.5444C280.615 14.9881 321.91 30.0342 287.053 64.0328Z" fill="white" fill-opacity="0.9"/>
             </g>
@@ -329,7 +329,7 @@ export const crushTexts = {
     [CRUSH_TEXT_TYPE.unskippable]: {
         text: 'Ой! Столкновение было неизбежно. Чтобы продолжить путь, ответь на вопрос',
         svgSizes: [324, 164],
-        svg: <svg width="324" height="164" viewBox="0 0 324 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+        svg: <svg width="100%" height="100%" viewBox="0 0 324 164" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_f_64_277799)" data-figma-bg-blur-radius="9.24093">
             <path d="M284.548 81.5014C340.062 151.146 234.952 122.303 158.253 138.12C52.4238 147.783 1.1705 121.019 31.9582 81.5014C6.80617 36.8409 58.3365 16.7107 158.253 24.8828C278.312 20.4564 318.308 39.184 284.548 81.5014Z" fill="white" fill-opacity="0.9"/>
             </g>
@@ -346,7 +346,7 @@ export const crushTexts = {
     [CRUSH_TEXT_TYPE.onlyText]: {
         text: 'Осторожнее!',
         svgSizes: [199, 89],
-        svg: <svg width="199" height="89" viewBox="0 0 199 89" fill="none" xmlns="http://www.w3.org/2000/svg">
+        svg: <svg width="100%" height="100%" viewBox="0 0 199 89" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_2130_4)" data-figma-bg-blur-radius="6.84513">
         <path d="M171.904 44.0182C204.771 76.1038 142.54 62.8155 97.1299 70.1025C34.4728 74.5541 4.1279 62.2242 22.356 44.0182C7.46454 23.443 37.9735 14.169 97.1299 17.9339C168.212 15.8947 191.891 24.5225 171.904 44.0182Z" fill="white" fill-opacity="0.9"/>
         </g>
@@ -363,7 +363,7 @@ export const crushTexts = {
     [CRUSH_TEXT_TYPE.wrong]: {
         text: 'Попробуй еще раз!',
         svgSizes: [270, 96],
-        svg: <svg width="270" height="96" viewBox="0 0 270 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        svg: <svg width="100%" height="100%" viewBox="0 0 270 96" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_64_343839)" data-figma-bg-blur-radius="6.84513">
         <path d="M238.917 47.5611C286.014 83.8717 196.841 68.8337 131.771 77.0802C41.9884 82.118 -1.4936 68.1644 24.6259 47.5611C3.28756 24.2765 47.0046 13.7813 131.771 18.042C233.627 15.7342 267.558 25.4981 238.917 47.5611Z" fill="white" fill-opacity="0.9"/>
         </g>

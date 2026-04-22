@@ -1,3 +1,4 @@
+import { withGameHeader } from "../components/hoc/withGameHeader";
 import { Final } from "../components/screens/Final";
 import { Intro } from "../components/screens/Intro";
 import { Level1 } from "../components/screens/levels/Level1";
@@ -8,5 +9,5 @@ import { Level4 } from "../components/screens/levels/Level4";
 import { Level5 } from "../components/screens/levels/Level5";
 
 export const screens = [
-    Intro, Level1, Level2, Level3, Level3Finish, Level4, Level5, Final
+    Intro, withGameHeader(Level1), withGameHeader(Level2, true), withGameHeader(Level3, true), withGameHeader(Level3Finish), withGameHeader(Level4), withGameHeader(Level5), Final
 ];

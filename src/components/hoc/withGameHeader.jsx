@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import logo from '../../assets/images/logo.svg';
 import { useSizeRatio } from "../../contexts/SizeRatioContext";
+import { media } from "../../constants/media";
 
 const Header = styled.div`
    position: absolute;
@@ -11,9 +12,28 @@ const Header = styled.div`
    align-items: center;
    justify-content: space-between;
    padding: ${({$ratio}) => $ratio * 12}px ${({$ratio}) => $ratio * 15}px;
+   z-index: 20;
+`;
+
+const DarkenBlock = styled.div`
+    position: absolute;
+    left: 0;
+    top: -12px;
+    width: calc(100% + 40px);
+    height: ${({$ratio}) => $ratio * 120}px;
+    left: -20px;
+
+    background: linear-gradient(180deg, #00003C 30.83%, rgba(0, 0, 180, 0) 124.17%);
+    filter: blur(11.85px);
+
+    ${media.desktop`
+        height: 120px;
+    `}
 `;
 
 const Logo = styled.img`
+    position: relative;
+    z-index: 2;
     width: ${({$ratio}) => $ratio * 83}px;
     height: ${({$ratio}) => $ratio * 24}px;
 `;
@@ -44,15 +64,16 @@ const ProgressWrapper = styled.div`
     width: ${({$ratio}) => $ratio * 132}px;
 `;
 
-export const withGameHeader = (Component) => () => {
+export const withGameHeader = (Component, isDarken) => () => {
     const ratio = useSizeRatio();
 
     return (
         <>
-            <Header>
+            <Header $isDarken={isDarken} $ratio={ratio}>
+                {isDarken && (<DarkenBlock $ratio={ratio}/>)}
                 <Logo $ratio={ratio} src={logo} alt="" />
                 <div>
-                    <ProgressTextWrapper>
+                    {/* <ProgressTextWrapper>
                         <ProgressTextBlock>
                             <Number $ratio={ratio}>418</Number>
                             <Text $ratio={ratio}>км</Text>
@@ -61,8 +82,8 @@ export const withGameHeader = (Component) => () => {
                             <Number $ratio={ratio}>225</Number>
                             <Text $ratio={ratio}>млн{'\n'}км</Text>
                         </ProgressTextBlock>
-                    </ProgressTextWrapper>
-                    <ProgressWrapper $ratio={ratio}></ProgressWrapper>
+                    </ProgressTextWrapper> */}
+                    {/* <ProgressWrapper $ratio={ratio}></ProgressWrapper> */}
                 </div>
             </Header>
             <Component />

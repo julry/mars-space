@@ -8,7 +8,7 @@ import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";
 import { useProgress } from "../../../../contexts/ProgressContext";
 import { useGame } from "./useGame";
-import { DURATION_LANDING } from "./constants";
+import { DURATION_LANDING, phrases } from "./constants";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -84,6 +84,47 @@ const StartWrapper = styled(motion.div)`
     bottom: var(--spacing_x5);
 `;
 
+const LeftAction = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    bottom: 0;
+    z-index: 5;
+`;
+
+const RightAction = styled(LeftAction)`
+    left: auto;
+    right: 0;
+`;
+
+const ItemCloud = styled(motion.div)`
+    position: absolute;
+    top: ${({$top}) => $top};
+    left: ${({$left}) => $left};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    width: ${({$width}) => $width}px;
+    height: ${({$height}) => $height}px;
+    white-space: pre-line;
+
+    & svg {
+        position: absolute;
+        inset: 0;
+    }
+
+    & p {
+        color: var(--color-dark-blue);
+        position: relative;
+        text-align: center;
+        font-size: ${({$ratio}) => $ratio * 14}px;
+        font-weight: 700;
+        z-index: 2;
+    }
+`;
+
 export const Level5 = () => {
     const ratio = useSizeRatio();
     const { next } = useProgress();
@@ -93,13 +134,13 @@ export const Level5 = () => {
         isEnd,
         wrapperRef,
         rocketRef,
-        rocketX,
         rocketY,
         layerRef,
         imageRef,
         handleClick,
         handleStart,
-        isPath
+        isPath,
+        phrase,
     } = useGame();
     
 
@@ -107,15 +148,18 @@ export const Level5 = () => {
         <Wrapper 
             $ratio={ratio}
             ref={wrapperRef}
-            onClick={handleClick}
         >
-            <BgLayer ref={layerRef}>
+            <BgLayer 
+                ref={layerRef} 
+                style={{ y: rocketY}}
+            >
                 <BgImage ref={imageRef} src={bg} alt=""/>
             </BgLayer>
+            <LeftAction onClick={() => handleClick('left')}/>
+            <RightAction onClick={() => handleClick('right')}/>
             <RocketWrapper 
                     ref={rocketRef} 
                     $ratio={ratio}
-                    style={{x: rocketX, y: rocketY}}
                 >
                     <Rocket $ratio={ratio} src={rocket} alt=""/>
                     <AnimatePresence>
@@ -123,7 +167,34 @@ export const Level5 = () => {
                     </AnimatePresence>
                 </RocketWrapper>
             <AnimatePresence>
-                
+                {phrases[phrase] && (
+                        <ItemCloud 
+                            $ratio={ratio}
+                            $height={(phrases[phrase].svgSizes?.[0] ?? 180) * ratio}
+                            $width={(phrases[phrase].svgSizes?.[1] ?? 120) * ratio}
+                            $left={phrases[phrase].left}
+                            $top={phrases[phrase].top}
+                        >
+                            {phrases[phrase].svg ?? (
+                                <svg width="100%" height="100%" viewBox="0 0 140 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g filter="url(#filter0_f_64_219202)" data-figma-bg-blur-radius="6.84513">
+                                <path d="M115.992 34.5833C137.436 55.4173 96.8336 46.7889 67.2063 51.5205C26.3263 54.4111 6.52815 46.4049 18.4209 34.5833C8.70511 21.2234 28.6103 15.2015 67.2063 17.6461C113.583 16.322 129.032 21.9243 115.992 34.5833Z" fill="white" fill-opacity="0.9"/>
+                                </g>
+                                <defs>
+                                <filter id="filter0_f_64_219202" x="-2.11283" y="0.000452042" width="141.226" height="69.2257" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                                <feGaussianBlur stdDeviation="8.55641" result="effect1_foregroundBlur_64_219202"/>
+                                </filter>
+                                <clipPath id="bgblur_0_64_219202_clip_path" transform="translate(2.11283 -0.000452042)"><path d="M115.992 34.5833C137.436 55.4173 96.8336 46.7889 67.2063 51.5205C26.3263 54.4111 6.52815 46.4049 18.4209 34.5833C8.70511 21.2234 28.6103 15.2015 67.2063 17.6461C113.583 16.322 129.032 21.9243 115.992 34.5833Z"/>
+                                </clipPath></defs>
+                                </svg>
+                            )}
+                            <p>
+                                {phrases[phrase].text}
+                            </p>
+                        </ItemCloud>
+                    )}
                 {isStart && (
                    <StartWrapper exit={{opacity: 0}}>
                         <Block zIndex={10}>
@@ -132,7 +203,7 @@ export const Level5 = () => {
                                     и умение вести за собой
                             </p>
                         </Block>
-                        <Button onClick={(handleStart)}>ВПЕРЁД</Button>
+                        <Button zIndex={10} onClick={(handleStart)}>ВПЕРЁД</Button>
                    </StartWrapper>
                 )}
                 {isEnd &&  (
@@ -144,7 +215,7 @@ export const Level5 = () => {
                                 и на финальном центре оценки. Настоящий лидер умеет найти равновесие между личными амбициями и общей целью
                             </p>
                         </Block>
-                        <Button onClick={next}>ДАЛЕЕ</Button>
+                        <Button zIndex={10} onClick={next}>ДАЛЕЕ</Button>
                    </StartWrapper>
                 )}
             </AnimatePresence>
