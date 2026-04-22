@@ -13,6 +13,7 @@ const Wrapper = styled.button`
     cursor: pointer;
     color: #FFFFFF;
     text-transform: uppercase;
+    z-index: ${({$zIndex}) => $zIndex ?? 0};
 
     &::after, &::before {
         content: '';
@@ -36,10 +37,10 @@ const Wrapper = styled.button`
     }
 `;
 
-export const Button = ({type = "main", shouldShowElements = true, ...props}) => {
+export const Button = ({zIndex = 0, type = "main", shouldShowElements = true, ...props}) => {
     const ratio = useSizeRatio();
 
-    return <Wrapper {...props} $ratio={ratio} $type={type} $shouldShowElements={shouldShowElements}/>
+    return <Wrapper {...props} $ratio={ratio} $zIndex={zIndex} $type={type} $shouldShowElements={shouldShowElements}/>
 }
 
 

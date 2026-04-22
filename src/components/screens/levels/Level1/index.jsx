@@ -1,16 +1,17 @@
 import styled from "styled-components";
-import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
-import { AnimatePresence, motion, } from "framer-motion";
-import { ITEMS, ROCKET_MOVE_DELAY_SEC } from './constants';
-import { Modal } from "../../../shared/Modal";
-import { Block } from "../../../shared/Block";
-import { Button } from "../../../shared/Button";
-import { useGame } from "./useGame";
 import { useState } from "react";
+import { AnimatePresence, motion, } from "framer-motion";
 import bg from '../../../../assets/images/bgLevel1.png';
 import path from '../../../../assets/images/pathLong.png';
 import bgDesk from '../../../../assets/images/bgLevel1Desk.png';
 import { media } from "../../../../constants/media";
+import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
+import { Modal } from "../../../shared/Modal";
+import { Block } from "../../../shared/Block";
+import { Button } from "../../../shared/Button";
+import { useGame } from "./useGame";
+import { ITEMS, ROCKET_MOVE_DELAY_SEC } from './constants';
+
 
 const Wrapper = styled.div`
     width: 100%;

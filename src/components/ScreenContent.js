@@ -3,6 +3,7 @@ import {AnimatePresence, motion} from 'framer-motion';
 
 import {useProgress} from "../contexts/ProgressContext";
 import { useImagePreloader } from "../hooks/useImagePreloader";
+import {images} from '../constants/images';
 
 const Wrapper = styled(motion.div)`
     position: relative;
@@ -15,7 +16,7 @@ const Wrapper = styled(motion.div)`
 export function ScreenContent() {
     const {screen: Screen, currentScreenIndex} = useProgress();
 
-    useImagePreloader([]);
+    useImagePreloader(images[currentScreenIndex] ?? []);
 
     return Screen && (
         <AnimatePresence mode="wait">

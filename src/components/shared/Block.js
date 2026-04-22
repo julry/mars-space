@@ -15,6 +15,7 @@ const Wrapper = styled.div`
     max-width: ${({$ratio}) => $ratio * 335}px;
     z-index: ${({$zIndex}) => $zIndex ?? 1};
     font-weight: 500;
+    white-space: pre-line;
 
     &::after, &::before {
         content: '';

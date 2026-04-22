@@ -12,6 +12,7 @@ import { Button } from "../../../shared/Button";
 import { MIN_MOCKUP_WIDTH } from "../../../ScreenTemplate";
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { useProgress } from "../../../../contexts/ProgressContext";
+import { CloudBlock } from "../../../shared/LevelCloudBlock";
 
 const Wrapper = styled.div`
     position: relative;
@@ -252,33 +253,9 @@ const AnswerField = styled.p`
     `}
 `;
 
-const ModalBlock = styled(motion.div)`
-    position: absolute;
-    left: 50%;
-    z-index: 100;
+const ModalBlock = styled(CloudBlock)`
     top: ${({$ratio}) => $ratio * 96}px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    width: ${({$width}) => $width}px;
-    height: ${({$height}) => $height}px;
-    white-space: pre-line;
-    transform: translateX(-50%);
-
-    & svg {
-        position: absolute;
-        inset: 0;
-    }
-
-    & p {
-        width: 100%;
-        position: relative;
-        z-index: 2;
-        color: var(--color-dark-blue);
-        font-weight: 600;
-        font-size: ${({$ratio}) => $ratio * 20}px;
-    }
-
+    
     ${media.desktop`
         top: ${({$ratio}) => $ratio * 56}px;
     `}

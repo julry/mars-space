@@ -82,7 +82,6 @@ export const useGame = () => {
         if (xBlocks !== undefined) {
             const shouldFall = getIsMissing(x.get(), ITEMS[currentItem]);
 
-            // TODO: поправить с учетом того что объекты меньше чем blockWidth
             if (shouldFall) {
                 const itemSpacing = (ITEMS[currentItem].height + ITEMS[currentItem].top) * ratio;
                 animateItem(scopeItem.current,
