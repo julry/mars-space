@@ -158,9 +158,9 @@ export const Level5 = () => {
             <LeftAction onClick={() => handleClick('left')}/>
             <RightAction onClick={() => handleClick('right')}/>
             <RocketWrapper 
-                    ref={rocketRef} 
-                    $ratio={ratio}
-                >
+                ref={rocketRef} 
+                $ratio={ratio}
+            >
                     <Rocket $ratio={ratio} src={rocket} alt=""/>
                     <AnimatePresence>
                         {isPath && <RocketPath exit={{opacity: 0}} transition={{duration: DURATION_LANDING / 4}} $ratio={ratio} src={path} alt=""/>}
