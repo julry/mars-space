@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useAnimate, useMotionValue } from 'framer-motion';
+import { percent, useAnimate, useMotionValue } from 'framer-motion';
 import { ITEMS, LEAVE_DURATION_SEC, BLOCK_BOTTOM_POSITION, BLOCK_WIDTH, 
         BLOCK_WIDTH_KOEF, SPRING_TRANSITION, FULL_MOVE_SEC, ROCKET_MOVE_DELAY_SEC
 } from './constants';
@@ -10,7 +10,7 @@ import { useProgress } from '../../../../contexts/ProgressContext';
 export const useGame = () => {
     const controls = useRef();
     const ratio = useSizeRatio();
-    const { next } = useProgress();
+    const { next, setProgress } = useProgress();
     const [scope, animate] = useAnimate();
     const [rocketScope, animateRocket] = useAnimate();
     const [scopeItem, animateItem] = useAnimate();
@@ -63,11 +63,9 @@ export const useGame = () => {
     };
 
     const handleScreenClick = () => {
-        if (isEmptyList.current) {
-            setIsEnded(true);
-
+        if (isShownLights) {
             return;
-        };
+        }
 
         if (isEnded || isAnimating || !isStarted) {
             return;
@@ -134,6 +132,14 @@ export const useGame = () => {
 
         if (currentItem + 1 >= ITEMS.length) {
             isEmptyList.current = true;
+
+            setTimeout(() => {
+                setProgress({stage: 'earth', percent: 8, current: 0});
+                setIsEnded(true);
+
+                return;
+            }, 800);
+
             return;
         }
 
@@ -161,22 +167,6 @@ export const useGame = () => {
 
     const handleStart = async () => {
         setIsStarted(true);
-        // ??: moving first detail
-
-        // const duration = durationK.current * FULL_MOVE_SEC * 1.25; 
-
-        // TODO: duration based on screen size;
-        // controls.current = animate(scope.current, {
-        //     x: [-blockWidth / 2, -initialXRight.current, initialXRight.current - blockWidth],
-        // }, {
-        //         duration,
-        //         times: [0, 0.25, 1],
-        //         ease: 'linear',
-        // },);
-
-        // controls.current.then(() => {
-        //     handleMove();
-        // })
     }
 
     const returnToBlock = () => {
@@ -196,6 +186,7 @@ export const useGame = () => {
         setIsEnded(false);
         setIsShownLights(true);
         setTimeout(() => {
+            setProgress(prev => ({...prev, percent: 25, duration: 5.6}));
             animateRocket(rocketScope.current, {
                 backgroundPositionY: ['100%', 0],
             }, {

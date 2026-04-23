@@ -79,7 +79,7 @@ export const ITEMS = [
         y: 267,
         top: 137,
         height: 30,
-        text: 'Добавь\nконтакты и фото',
+        text: 'Добавь\nконтакты и фото',
     }, 
     {
         id: 5,
@@ -92,7 +92,7 @@ export const ITEMS = [
         height: 90,
         top: 114,
         y: 281,
-        text: 'Добавь\nконтакты и фото',
+        text: 'Добавь\nконтакты и фото',
     }, 
 ];
 

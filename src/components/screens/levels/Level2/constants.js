@@ -49,7 +49,7 @@ export const questions = [
         id: 2,
         title: 'Сколько брендов Mars\nпредставлено в России сегодня?',
         problem: '(8-5)×9',
-        afterText: <>Верно! <b>27</b> брендов кормов для питомцев, шоколадных изделий и жевательной резинки. Среди них: Snickers, Orbit, Whiskas, Royal Canin и многие другие</>,
+        afterText: <>Верно! <b>27</b> брендов кормов для питомцев, шоколадных изделий и жевательной резинки. Среди них: Snickers, Orbit, Whiskas, Royal Canin и многие другие</>,
         answers: [
             {
                 id: 0,

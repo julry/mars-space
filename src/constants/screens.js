@@ -9,5 +9,12 @@ import { Level4 } from "../components/screens/levels/Level4";
 import { Level5 } from "../components/screens/levels/Level5";
 
 export const screens = [
-    Intro, withGameHeader(Level1), withGameHeader(Level2, true), withGameHeader(Level3, true), withGameHeader(Level3Finish), withGameHeader(Level4), withGameHeader(Level5), Final
+    Intro, 
+    withGameHeader(Level1, false, true), 
+    withGameHeader(Level2, true), 
+    withGameHeader(Level3, true), 
+    withGameHeader(Level3Finish), 
+    withGameHeader(Level4), 
+    withGameHeader(Level5), 
+    Final
 ];

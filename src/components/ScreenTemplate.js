@@ -49,6 +49,7 @@ const Content = styled.div`
 const CookieWrapper = styled(Block)`
     position: absolute;
     left: 50%;
+    z-index: 10000;
     transform: translateX(-50%);
     width: 100%;
     bottom: ${({$sizeRatio}) => $sizeRatio * 220}px;

@@ -1,4 +1,3 @@
-import {CRUSH_TEXT_TYPE} from '../Level4/constants';
 export const DURATION_PATH = 12;
 export const DURATION_LANDING = 2;
 export const DURATION_ROTATION = 1.8;
@@ -23,10 +22,10 @@ export const phrases = [
         top: '20%'
     },
     {
-        text: 'Еще чуть-чуть',
-        left: '80%',
-        top: '13%',
-        svgSizes: [283, 130],
+        text: 'Ещё чуть-чуть',
+        left: '76%',
+        top: '16%',
+        svgSizes: [153, 70],
         svg: <svg width="100%" height="100%" viewBox="0 0 153 70" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_64_210114)" data-figma-bg-blur-radius="6.84513">
         <path d="M128.487 34.5833C152.135 55.4173 107.359 46.7889 74.6861 51.5205C29.6035 54.4111 7.77001 46.4049 20.8853 34.5833C10.1708 21.2234 32.1223 15.2015 74.6861 17.6461C125.83 16.322 142.868 21.9243 128.487 34.5833Z" fill="white" fill-opacity="0.9"/>

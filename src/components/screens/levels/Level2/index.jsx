@@ -1,11 +1,11 @@
 import styled, { keyframes } from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
+import {AnimatePresence, motion, percent} from 'framer-motion';
 import bg from "../../../../assets/images/level2Bg.png";
 import station from '../../../../assets/images/stationLevel2.png';
 import oil1 from '../../../../assets/images/oil1.png';
 import oil2 from '../../../../assets/images/oil2.png';
 import { media } from "../../../../constants/media";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CORRECT_COLOR, ERROR_COLOR, questions, SCENE_ZOOM } from "./constants";
 import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";
@@ -314,7 +314,7 @@ const fieldFocusTransition = {
 
 export const Level2 = () => {
     const ratio = useSizeRatio();
-    const {next} = useProgress();
+    const {next, setProgress} = useProgress();
     const [currentField, setCurrentField] = useState(-1);
     const [isError, setIsError] = useState(false);
     const [answered, setAnswered] = useState([]);
@@ -322,6 +322,10 @@ export const Level2 = () => {
     const [isStarted, setIsStarted] = useState(false);
     const [isNextBlock, setIsNextBlock] = useState(false);
     const nextPressed = useRef(false);
+
+    useEffect(() => {
+        setProgress(prev => ({...prev, current: 418}));
+    }, []);
 
     const question = useMemo(() => questions.find(({id}) => id === currentField), [currentField]);
 

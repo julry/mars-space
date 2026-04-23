@@ -1,9 +1,11 @@
-import { motion } from "framer-motion";
+import { motion, percent } from "framer-motion";
 import styled from "styled-components";
 import bg from '../../../../assets/images/level3Finish.png';
 import path from '../../../../assets/images/pathLong.png';
 import rocket from '../../../../assets/images/rocket.png';
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
+import { useProgress } from "../../../../contexts/ProgressContext";
+import { useEffect } from "react";
 
 const Wrapper = styled(motion.div)`
     position: absolute;
@@ -46,10 +48,17 @@ const RocketPath = styled.img`
 `;
 
 export const Level3Finish = () => {
+    const { next, setProgress } = useProgress();
     const ratio = useSizeRatio();
 
+    useEffect(() => {
+        setTimeout(() => {
+            setProgress(prev => ({...prev, percent: 82, duration: window.innerWidth > 400 ? 7 : 5}));
+        }, 100)
+    }, [])
+
     return (
-        <Wrapper animate={{backgroundPositionY: 0}} transition={{duration: window.innerWidth > 400 ? 7 : 5, delay: 0.1}}>
+        <Wrapper onAnimationComplete={next} animate={{backgroundPositionY: 0}} transition={{duration: window.innerWidth > 400 ? 7 : 5, delay: 0.1}}>
                 <Rocket $ratio={ratio} src={rocket} alt=""/>
                 <RocketPath $ratio={ratio} src={path} alt=""/>
         </Wrapper>

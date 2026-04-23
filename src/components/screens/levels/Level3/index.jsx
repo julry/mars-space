@@ -251,8 +251,6 @@ export const Level3 = () => {
         return ({x: -26, y: -70})
     }
 
-    //TODO: подумать про анимацию волн
-
     return (
         <Wrapper>
             <Rocket src={rocketStart} alt=""/> 
@@ -262,10 +260,10 @@ export const Level3 = () => {
                         <Rocket initial={{opacity: 0}} animate={{opacity: 1}} src={rocket} alt=""/> 
                         <OilBoxWrapper>
                             <OilBox 
-                                animate={{width: '100%', borderTopRightRadius: [200, 55, 65, 90, 50, 20, 0], borderBottomRightRadius: 0}} 
+                                animate={{width: '100%', borderTopRightRadius: [200, 55, 65, 90, 50, 20, 0], borderBottomRightRadius: [50, 20, 0]}} 
                                 transition={{
                                     duration: DURATION,
-                                    borderBottomRightRadius: {duration: 2, delay: DURATION - 2}
+                                    borderBottomRightRadius: {duration: 2, delay: DURATION - 3}
                                 }}
                             >
                                 <img src={oil} alt=""/>
@@ -335,7 +333,7 @@ export const Level3 = () => {
                 {isEndBlock && !isButtonsBlock && (
                     <>
                         <Block zIndex={10}>
-                            <p>Твоя мотивация — топливо для успешного прохождения видеоинтервью или тестирования. Покажи, что этот челлендж тебе под силу. В Mars любят целеустремленных</p>
+                            <p>Твоя мотивация — топливо для успешного прохождения видеоинтервью или тестирования. Покажи, что этот челлендж тебе под силу. в Mars любят целеустремленных</p>
                         </Block>
                         <Button  zIndex={10} onClick={() => setIsButtonsBlock(true)}>полетели</Button>
                     </>

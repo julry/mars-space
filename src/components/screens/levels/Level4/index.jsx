@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, percent } from "framer-motion";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import path from '../../../../assets/images/pathSm.png';
 import bg from '../../../../assets/images/level4Bg.png';
@@ -86,7 +86,7 @@ const StartWrapper = styled(motion.div)`
     position: absolute;
     inset: 0;
     display: flex;
-    z-index: 3;
+    z-index: 10;
     justify-content: flex-end;
     align-items: center;
     flex-direction: column;
@@ -98,7 +98,6 @@ const ActiveBlock = styled(motion.div)`
     position: absolute;
     bottom: 75%;
     left: 50%;
-    border: 1px solid red;
     z-index: 1;
 
     width: ${({$ratio}) => ($ratio * 145) * 2.5 - 40 * $ratio}px;
@@ -198,17 +197,34 @@ const EduArrowRight = styled(EduArrow)`
 
 const CrushImage = styled(motion.img)`
     position: absolute;
-    left: 50%;
+    left: 49%;
     top: ${({$ratio}) => $ratio * -34}px;
     width: ${({$ratio}) => $ratio * 100}px;
     height: ${({$ratio}) => $ratio * 86}px;
 `;
 
+const LeftAction = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    bottom: 0;
+    z-index: 5;
+`;
+
+const RightAction = styled(LeftAction)`
+    left: auto;
+    right: 0;
+`;
+
 export const Level4 = () => {
     const ratio = useSizeRatio();
-    const { next } = useProgress();
+    const { next, setProgress } = useProgress();
     const [isButtonsBlock, setIsButtonsBlock] = useState(false);
 
+    useEffect(() => {
+        setProgress(prev => ({...prev, stage: 'space', current: 223, percent: 82, duration: 0}))
+    }, []);
 
     const {
         isStart,
@@ -225,8 +241,6 @@ export const Level4 = () => {
         isQuestionsShown,
         crushText,
         isCrushed,
-        handleStartTouch,
-        handleEndTouch,
         handleClick,
         handleStart,
         setCrushText,
@@ -237,13 +251,12 @@ export const Level4 = () => {
         <Wrapper 
             $ratio={ratio}
             ref={wrapperRef}
-            onTouchStart={handleStartTouch}
-            onTouchEnd={handleEndTouch}
-            onClick={handleClick}
         >
             <BgLayer ref={layerRef}>
                 <BgImage ref={imageRef} src={bg} alt=""/>
             </BgLayer>
+            <LeftAction onClick={() => handleClick('left')}/>
+            <RightAction onClick={() => handleClick('right')}/>
             <ActiveBlock 
                 ref={itemsRef}
                 style={{x: rocketX, y: rocketY}}
@@ -369,19 +382,19 @@ export const Level4 = () => {
                                 По курсу облако из астероидов каверзных вопросов и космического мусора сомнений. Настало время поверить в себя и преодолеть свои страхи — увернись от всех препятствий
                             </p>
                         </Block>
-                        <Button onClick={(handleStart)}>ВПЕРЁД</Button>
+                        <Button zIndex={10} onClick={handleStart}>ВПЕРЁД</Button>
                    </StartWrapper>
                 )}
                 {isEnd && !isButtonsBlock &&  (
                    <StartWrapper exit={{opacity: 0}}>
                         <Block zIndex={10}>
                             <p>
-                                Ты смог проскользнуть между астероидами. Так и в интервью с рекрутером: 
+                                Ты смог проскользнуть между астероидами. Так и в интервью с рекрутером: 
                                 дальше проходит тот, кто гибко мыслит 
-                                и не поддается страхам
+                                и не поддается страхам
                             </p>
                         </Block>
-                        <Button onClick={() => setIsButtonsBlock(true)}>Полетели</Button>
+                        <Button zIndex={10} onClick={() => setIsButtonsBlock(true)}>Полетели</Button>
                    </StartWrapper>
                 )}
                 {isButtonsBlock && (

@@ -118,10 +118,10 @@ const BgLayer = styled(motion.div)`
 
 const Lights = styled(motion.img)`
     position: absolute;
-    bottom: ${({$ratio}) => $ratio * -150}px;
+    bottom: ${({$ratio}) => $ratio * -265}px;
     left: 50%;
-    width: ${({$ratio}) => $ratio * 236}px;
-    height: ${({$ratio}) => $ratio * 299}px;
+    width: ${({$ratio}) => $ratio * 295 * 1.1}px;
+    height: ${({$ratio}) => $ratio * 375 * 1.1}px;
     object-fit: contain;
     z-index: 0;
 `;
@@ -168,7 +168,7 @@ export const Level1 = () => {
         <>
             <BgLayer ref={rocketScope}/>
             <AnimatePresence>
-                {!isEnded && (
+                {!(isEnded || isShownLights) && (
                     <DarkenBlock exit={{opacity: 0}} />
                 )}
             </AnimatePresence>
@@ -240,7 +240,7 @@ export const Level1 = () => {
                         textId > 0 && !isEnded && !isShownLights && (
                             <TextBlock
                                 $ratio={ratio}
-                                key={textId} 
+                                key={textId > 0 ? 'shown' : 'hidden'} 
                                 initial={{
                                     opacity: 0,
                                     x: '-50%'
@@ -293,11 +293,11 @@ export const Level1 = () => {
             <Modal isOpen={isStartScreen} isDarken={false} isCentered={false}>
                 <StartBlock>
                     <Block>
-                        <p>Чтобы ракета смогла отправиться в полёт,
+                        <p>Чтобы ракета смогла отправиться в полёт,
                             ей нужен крепкий каркас. Так же
-                            и на лидерской программе Curiosity —
-                            без структурного и качественного резюме
-                            не получится пройти первый этап отбора</p>
+                            и на лидерской программе Curiosity —
+                            без структурного и качественного резюме
+                            не получится пройти первый этап отбора</p>
                     </Block>
                     <ButtonStyled onClick={() => setIsStartScreen(false)}>Вперёд!</ButtonStyled>
                 </StartBlock>
@@ -307,8 +307,8 @@ export const Level1 = () => {
                         <Block>
                         <p>
                             Ракета состоит из множества блоков,
-а резюме — из фактов о тебе. Они рассказывают о тебе как о потенциальном кандидате и становятся первым шагом
-на пути к цели
+                            а резюме — из фактов о тебе. Они рассказывают о тебе как о потенциальном кандидате и становятся первым шагом
+                            на пути к цели
                         </p>
                     </Block>
                     <ButtonStyled onClick={handleEndGame}>Вперёд!</ButtonStyled>

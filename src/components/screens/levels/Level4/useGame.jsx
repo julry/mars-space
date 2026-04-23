@@ -34,7 +34,7 @@ export const useGame = () => {
     const educationRef = useRef(false);
 
     const moveLeft = () => {
-        if (isMoving.current) {
+        if (isMoving.current || isEnd) {
             return;
         }
         isMoving.current = true;
@@ -56,7 +56,7 @@ export const useGame = () => {
     };
 
     const moveRight = () => {
-        if (isMoving.current) {
+        if (isMoving.current || isEnd) {
             return;
         }
 
@@ -155,7 +155,6 @@ export const useGame = () => {
         }
     });
 
-
     useEffect(() => {
         moveDist.current = rocketRef.current.getBoundingClientRect().width - 40 * ratio;
         window.addEventListener('keydown', handlePressKey);
@@ -230,7 +229,7 @@ export const useGame = () => {
         }
     }
 
-    const handleClick = (e) => {
+    const handleClick = (side) => {
         if (startRef.current || isCrushed) {
             return;
         }
@@ -238,7 +237,6 @@ export const useGame = () => {
         if (!getIsTouchDevice()) {
             return;
         }
-        // TODO: check ipad;
 
         if (!educationRef.current) {
             educationRef.current = true;
@@ -247,7 +245,7 @@ export const useGame = () => {
             rocketMovingUp.current?.play();
         };
 
-        if (e.clientX < (wrapperRef.current.getBoundingClientRect().width / 2)) {
+        if (side === 'left') {
             moveLeft();
         } else {
             moveRight();

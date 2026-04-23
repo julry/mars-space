@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import {AnimatePresence, motion, percent} from 'framer-motion';
 import styled from "styled-components";
 import path from '../../../../assets/images/pathSm.png';
 import bg from '../../../../assets/images/level5Bg.png';
@@ -9,6 +9,8 @@ import { Button } from "../../../shared/Button";
 import { useProgress } from "../../../../contexts/ProgressContext";
 import { useGame } from "./useGame";
 import { DURATION_LANDING, phrases } from "./constants";
+import {useEffect} from 'react';
+import { Modal } from '../../../shared/Modal';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -125,9 +127,17 @@ const ItemCloud = styled(motion.div)`
     }
 `;
 
+const EduCloud = styled(ItemCloud)`
+    z-index: 20;
+    
+    & p {
+        font-size: ${({$ratio}) => $ratio * 20}px;
+    }
+`;
+
 export const Level5 = () => {
     const ratio = useSizeRatio();
-    const { next } = useProgress();
+    const { next, setProgress } = useProgress();
 
     const {
         isStart,
@@ -141,7 +151,12 @@ export const Level5 = () => {
         handleStart,
         isPath,
         phrase,
+        isEdu, 
     } = useGame();
+
+    useEffect(() => {
+        setProgress(prev => ({...prev, stage: 'space', current: 224.1, percent: 84}))
+    }, []);
     
 
     return (
@@ -170,8 +185,8 @@ export const Level5 = () => {
                 {phrases[phrase] && (
                         <ItemCloud 
                             $ratio={ratio}
-                            $height={(phrases[phrase].svgSizes?.[0] ?? 180) * ratio}
-                            $width={(phrases[phrase].svgSizes?.[1] ?? 120) * ratio}
+                            $height={(phrases[phrase].svgSizes?.[1] ?? 70) * ratio}
+                            $width={(phrases[phrase].svgSizes?.[0] ?? 140) * ratio}
                             $left={phrases[phrase].left}
                             $top={phrases[phrase].top}
                         >
@@ -195,6 +210,35 @@ export const Level5 = () => {
                             </p>
                         </ItemCloud>
                     )}
+                {isEdu && (
+                    <EduCloud
+                        exit={{opacity: 0}}
+                        $ratio={ratio}
+                        $height={156 * ratio}
+                        $width={310 * ratio}
+                        $left='50%'
+                        $top='50%'
+                    >
+                        <svg width="100%" height="100%" viewBox="0 0 310 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g filter="url(#filter0_f_64_395740)" data-figma-bg-blur-radius="6.84513">
+                            <path d="M276.671 77.5097C331.784 149.536 227.433 119.706 151.288 136.064C46.2226 146.057 -4.66065 118.379 25.9047 77.5097C0.934326 31.3224 52.0926 10.504 151.288 18.9554C270.48 14.3777 310.187 33.7455 276.671 77.5097Z" fill="white" fill-opacity="0.9"/>
+                            </g>
+                            <defs>
+                            <filter id="filter0_f_64_395740" x="-3.62396e-05" y="0.000452042" width="309.226" height="155.226" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                            <feGaussianBlur stdDeviation="8.55641" result="effect1_foregroundBlur_64_395740"/>
+                            </filter>
+                            <clipPath id="bgblur_0_64_395740_clip_path" transform="translate(3.62396e-05 -0.000452042)"><path d="M276.671 77.5097C331.784 149.536 227.433 119.706 151.288 136.064C46.2226 146.057 -4.66065 118.379 25.9047 77.5097C0.934326 31.3224 52.0926 10.504 151.288 18.9554C270.48 14.3777 310.187 33.7455 276.671 77.5097Z"/>
+                            </clipPath></defs>
+                        </svg>
+                        <p>
+                            Время приземляться:{'\n'}
+                            не дай ракете упасть. Нажимай на экран{'\n'}
+                            со стороны наклона
+                        </p>
+                    </EduCloud>
+                )}
                 {isStart && (
                    <StartWrapper exit={{opacity: 0}}>
                         <Block zIndex={10}>
@@ -203,7 +247,7 @@ export const Level5 = () => {
                                     и умение вести за собой
                             </p>
                         </Block>
-                        <Button zIndex={10} onClick={(handleStart)}>ВПЕРЁД</Button>
+                        <Button zIndex={10} onClick={handleStart}>ВПЕРЁД</Button>
                    </StartWrapper>
                 )}
                 {isEnd &&  (

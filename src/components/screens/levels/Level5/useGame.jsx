@@ -1,11 +1,17 @@
 import {useAnimate, useMotionValue} from 'framer-motion';
 import {useRef, useState} from 'react';
-import {DIRECTIONS, DURATION_LANDING, DURATION_PATH, DURATION_REVEAL, DURATION_ROTATION} from './constants';
+
 import { useSizeRatio } from '../../../../contexts/SizeRatioContext';
+import { useProgress } from '../../../../contexts/ProgressContext';
+
+import {DIRECTIONS, DURATION_LANDING, DURATION_PATH, DURATION_REVEAL, DURATION_ROTATION} from './constants';
+
 export const useGame = () => {
     const ratio = useSizeRatio();
+    const { setProgress } = useProgress();
 
     const [isStart, setIsStart] = useState(true);
+    const [isEdu, setIsEdu] = useState(false);
     const [isEnd, setIsEnd] = useState(false);
     const [isPath, setIsPath] = useState(true);
     const [phrase, setPhrase] = useState();
@@ -35,6 +41,7 @@ export const useGame = () => {
 
         rocketMovingUp.current.then(() => {
             setIsPath(false);
+            setProgress(prev => ({...prev, current: 225, percent: 95, duration: DURATION_LANDING}))
             
             animateRocket(rocketRef.current, {
                 y: wrapperRect.bottom - rocketRef.current.getBoundingClientRect().bottom - 80 * ratio
@@ -50,6 +57,7 @@ export const useGame = () => {
 
     const handleStart = () => {
         setIsStart(false);
+        setIsEdu(true);
 
         moveDown();
 
@@ -105,9 +113,11 @@ export const useGame = () => {
 
    
     const handleClick = (movement) => {
-        console.log('gelllo');
         if (!isRotating.current) {
             return;
+        }
+        if (isEdu) {
+            setIsEdu(false);
         }
 
         rocketRotate.current?.pause?.();
@@ -160,7 +170,8 @@ export const useGame = () => {
         isEnd,
         isPath,
         phrase,
+        isEdu,
         handleClick,
-        handleStart
+        handleStart,
     }
 }

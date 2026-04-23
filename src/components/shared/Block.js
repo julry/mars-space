@@ -11,6 +11,7 @@ const Wrapper = styled.div`
     justify-content: center;
     text-align: center;
     background-color: #fff;
+    width: 100%;
     padding: ${({$ratio}) => $ratio * 26}px;
     max-width: ${({$ratio}) => $ratio * 335}px;
     z-index: ${({$zIndex}) => $zIndex ?? 1};

@@ -275,7 +275,7 @@ export const questions = [
         answers: [
             {
                 id: 0,
-                text: 'Никем, я не знаю, что будет завтра',
+                text: 'Никем, я не знаю, что будет завтра',
             },
             {
                 id: 1,
@@ -361,7 +361,7 @@ export const crushTexts = {
         </svg>
     },
     [CRUSH_TEXT_TYPE.wrong]: {
-        text: 'Попробуй еще раз!',
+        text: 'Попробуй ещё раз!',
         svgSizes: [270, 96],
         svg: <svg width="100%" height="100%" viewBox="0 0 270 96" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_64_343839)" data-figma-bg-blur-radius="6.84513">

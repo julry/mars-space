@@ -106,7 +106,6 @@ const RocketPath = styled.img`
 `;
 
 export const Final = () => {
-    const {next} = useProgress();
     const ratio = useSizeRatio();
 
     return (
@@ -121,10 +120,10 @@ export const Final = () => {
             </TitleBlock>
             <Block zIndex={3}>
                 <p>
-                Ты прошёл большой путь и доказал, что вызовы и испытания тебя не пугают. Настало время стать частью команды, которая создает будущее
+                Ты прошёл большой путь и доказал, что вызовы и испытания тебя не пугают. Настало время стать частью команды, которая создает будущее
                 </p>
             </Block>
-            <Button onClick={next}>Стать лидером!</Button>
+            <Button onClick={() => window.open('https://fut.ru/s/internship_curiosity', '_blank')}>Стать лидером!</Button>
         </Wrapper>
     );
 }

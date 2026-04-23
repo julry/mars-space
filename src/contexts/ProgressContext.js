@@ -10,7 +10,8 @@ const ProgressContext = createContext(INITIAL_STATE)
 
 export function ProgressProvider(props) {
     const {children} = props
-    const [currentScreenIndex, setCurrentScreenIndex] = useState(getUrlParam('screen') || INITIAL_STATE.screen)
+    const [currentScreenIndex, setCurrentScreenIndex] = useState(getUrlParam('screen') || INITIAL_STATE.screen);
+    const [progress, setProgress] = useState();
     const screen = screens[currentScreenIndex];
     const client = useRef();
 
@@ -45,7 +46,9 @@ export function ProgressProvider(props) {
         screen,
         next,
         registrateEmail,
-        currentScreenIndex
+        currentScreenIndex,
+        progress,
+        setProgress,
     }
 
     return (
