@@ -1,5 +1,5 @@
-export const DURATION_PATH = 12;
-export const DURATION_LANDING = 2;
+export const DURATION_PATH = 11;
+export const DURATION_LANDING = 3;
 export const DURATION_ROTATION = 1.8;
 export const DURATION_REVEAL = 2000;
 

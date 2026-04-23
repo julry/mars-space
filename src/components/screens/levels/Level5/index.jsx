@@ -10,7 +10,6 @@ import { useProgress } from "../../../../contexts/ProgressContext";
 import { useGame } from "./useGame";
 import { DURATION_LANDING, phrases } from "./constants";
 import {useEffect} from 'react';
-import { Modal } from '../../../shared/Modal';
 
 const Wrapper = styled.div`
     width: 100%;
