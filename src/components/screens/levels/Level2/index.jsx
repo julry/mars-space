@@ -13,6 +13,7 @@ import { MIN_MOCKUP_WIDTH } from "../../../ScreenTemplate";
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { useProgress } from "../../../../contexts/ProgressContext";
 import { CloudBlock } from "../../../shared/LevelCloudBlock";
+import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
 
 const Wrapper = styled.div`
     position: relative;
@@ -346,6 +347,8 @@ export const Level2 = () => {
     const handleStart = () => {
         setIsStarted(true);
         setFocusField(true);
+        reachMetrikaGoal('startlevel2');
+        
         setCurrentField(0);
     }
 
@@ -429,6 +432,7 @@ export const Level2 = () => {
             return;
         }
 
+        reachMetrikaGoal('prefinishlevel2');
         setFocusField(false);
     }
 
@@ -520,7 +524,7 @@ export const Level2 = () => {
                                 на колонке
                                 </p>
                             </Block>
-                            <Button onClick={handleStart}>Вперед!</Button>
+                            <Button onClick={handleStart}>Вперёд!</Button>
                         </BottomUi>
                     ) : focusField && (
                         <BottomUi key={`question_${currentField}`} exit={{opacity: 0}} inital={{opacity: 0}} animate={{opacity: 1}}>

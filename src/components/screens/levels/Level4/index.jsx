@@ -16,6 +16,7 @@ import { useGame } from "./useGame";
 import {CRUSH_TEXT_TYPE, crushTexts, ITEMS_BLOCK_HEIGHT, objects, questions} from './constants';
 import { QuestionInteractive } from "./QuestionsInteractive";
 import { getIsTouchDevice } from "../../../../utils/getIsTouchDevice";
+import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -52,6 +53,8 @@ const RocketWrapper = styled(motion.div)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    pointer-events: none;
+    user-select: none;
 `;
 
 const Rocket = styled.img`
@@ -140,6 +143,8 @@ const Item = styled.div`
     background: url(${({$bg}) => $bg}) no-repeat;
     background-position: center 100%;
     background-size: contain;
+    pointer-events: none;
+    user-select: none;
 `;
 
 const ItemCloud = styled(motion.div)`
@@ -148,6 +153,8 @@ const ItemCloud = styled(motion.div)`
     left: 50%;
     display: flex;
     align-items: center;
+    pointer-events: none;
+    user-select: none;
     justify-content: center;
     transform: translate(-50%, -50%);
     width: ${({$width}) => $width}px;
@@ -246,6 +253,16 @@ export const Level4 = () => {
         setCrushText,
         handleReplay,
     } = useGame();
+
+    const handleGo = () => {
+        reachMetrikaGoal('finishlevel3');
+        setIsButtonsBlock(true);
+    }
+
+    const handleLink = () => {
+        reachMetrikaGoal('program2');
+        window.open('https://fut.ru/s/internship_curiosity', '_blank')
+    };
 
     return (
         <Wrapper 
@@ -394,14 +411,14 @@ export const Level4 = () => {
                                 и не поддается страхам
                             </p>
                         </Block>
-                        <Button zIndex={10} onClick={() => setIsButtonsBlock(true)}>Полетели</Button>
+                        <Button zIndex={10} onClick={handleGo}>Полетели</Button>
                    </StartWrapper>
                 )}
                 {isButtonsBlock && (
                     <StartWrapper>
                         <ButtonsBlock>
                             <Button onClick={next}>Продолжить полет</Button>
-                            <Button onClick={() => window.open('https://fut.ru/s/internship_curiosity', '_blank')}>к программе</Button>
+                            <Button onClick={handleLink}>к программе</Button>
                         </ButtonsBlock>
                     </StartWrapper>
                 )}

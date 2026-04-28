@@ -9,6 +9,7 @@ import planet from '../../assets/images/marsPlanet.png';
 import rocket from '../../assets/images/rocket.png';
 import pathStart from '../../assets/images/pathStart.png';
 import { media } from "../../constants/media";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -110,6 +111,11 @@ export const Intro = () => {
     const {next} = useProgress();
     const ratio = useSizeRatio();
 
+    const handleNext = () => {
+        reachMetrikaGoal('start');
+        next();
+    }
+
     return (
         <Wrapper>
             <Planet $ratio={ratio} src={planet} alt="" />
@@ -127,7 +133,7 @@ export const Intro = () => {
                 Чтобы покорить Марс, нужно быть настоящим лидером. Отправься в полёт, пройди 5 уровней и узнай, какие качества помогут тебе достигнуть цели
                 </p>
             </Block>
-            <Button onClick={next}>НА СТАРТ!</Button>
+            <Button onClick={handleNext}>НА СТАРТ!</Button>
         </Wrapper>
     );
 }

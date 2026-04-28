@@ -11,6 +11,7 @@ import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";
 import { useGame } from "./useGame";
 import { ITEMS, ROCKET_MOVE_DELAY_SEC } from './constants';
+import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
 
 
 const Wrapper = styled.div`
@@ -164,6 +165,11 @@ export const Level1 = () => {
         isShownLights,
     } = useGame(ratio);
 
+    const handleStartLevel = () => {
+        reachMetrikaGoal('startlevel1');
+        setIsStartScreen(false);
+    }
+
     return (
         <>
             <BgLayer ref={rocketScope}/>
@@ -299,7 +305,7 @@ export const Level1 = () => {
                             без структурного и качественного резюме
                             не получится пройти первый этап отбора</p>
                     </Block>
-                    <ButtonStyled onClick={() => setIsStartScreen(false)}>Вперёд!</ButtonStyled>
+                    <ButtonStyled onClick={handleStartLevel}>Вперёд!</ButtonStyled>
                 </StartBlock>
             </Modal>
             <Modal isOpen={isEnded} transition={{delay: 0.3}}>

@@ -6,6 +6,7 @@ import { ITEMS, LEAVE_DURATION_SEC, BLOCK_BOTTOM_POSITION, BLOCK_WIDTH,
 import { MIN_MOCKUP_WIDTH } from '../../../ScreenTemplate';
 import { useSizeRatio } from '../../../../contexts/SizeRatioContext';
 import { useProgress } from '../../../../contexts/ProgressContext';
+import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
 
 export const useGame = () => {
     const controls = useRef();
@@ -185,6 +186,8 @@ export const useGame = () => {
     const handleEndGame = () => {  
         setIsEnded(false);
         setIsShownLights(true);
+        reachMetrikaGoal('finishlevel1');
+
         setTimeout(() => {
             setProgress(prev => ({...prev, percent: 25, duration: 5.6}));
             animateRocket(rocketScope.current, {

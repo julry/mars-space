@@ -10,6 +10,7 @@ import { useProgress } from "../../../../contexts/ProgressContext";
 import { useGame } from "./useGame";
 import { DURATION_LANDING, phrases } from "./constants";
 import {useEffect} from 'react';
+import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -44,6 +45,8 @@ const RocketWrapper = styled(motion.div)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    pointer-events: none;
+    user-select: none;
 `;
 
 const Rocket = styled.img`
@@ -127,7 +130,7 @@ const ItemCloud = styled(motion.div)`
 `;
 
 const EduCloud = styled(ItemCloud)`
-    z-index: 20;
+    z-index: 4;
     
     & p {
         font-size: ${({$ratio}) => $ratio * 20}px;
@@ -157,6 +160,10 @@ export const Level5 = () => {
         setProgress(prev => ({...prev, stage: 'space', current: 224.1, percent: 84}))
     }, []);
     
+    const handleNext = () => {
+        reachMetrikaGoal('finishlevel4');
+        next();
+    }
 
     return (
         <Wrapper 
@@ -258,7 +265,7 @@ export const Level5 = () => {
                                 и на финальном центре оценки. Настоящий лидер умеет найти равновесие между личными амбициями и общей целью
                             </p>
                         </Block>
-                        <Button zIndex={10} onClick={next}>ДАЛЕЕ</Button>
+                        <Button zIndex={10} onClick={handleNext}>ДАЛЕЕ</Button>
                    </StartWrapper>
                 )}
             </AnimatePresence>

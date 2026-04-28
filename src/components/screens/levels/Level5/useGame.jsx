@@ -1,11 +1,12 @@
 import {useAnimate, useMotionValue, useMotionValueEvent} from 'framer-motion';
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 
 import { useSizeRatio } from '../../../../contexts/SizeRatioContext';
 import { useProgress } from '../../../../contexts/ProgressContext';
 
-import {DIRECTIONS, DURATION_LANDING, DURATION_PATH, DURATION_REVEAL, DURATION_ROTATION} from './constants';
+import {DIRECTIONS, DURATION_LANDING, DURATION_PATH, DURATION_ROTATION} from './constants';
 import { MIN_MOCKUP_WIDTH } from '../../../ScreenTemplate';
+import { reachMetrikaGoal } from '../../../../utils/reachMetrikaGoal';
 
 export const useGame = () => {
     const ratio = useSizeRatio();
@@ -27,7 +28,6 @@ export const useGame = () => {
     const rocketRotate = useRef();
     const rocketYStart = useRef();
     const timeInitial = useRef();
-    const lastDuration = useRef();
     const duration = useRef(0);
     const isRotating = useRef(false);
     const rotationsAmount = useRef(0);
@@ -59,6 +59,7 @@ export const useGame = () => {
     }
 
     const handleStart = () => {
+        reachMetrikaGoal('startlevel4');
         setIsStart(false);
         setIsEdu(true);
 

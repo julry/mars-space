@@ -9,6 +9,7 @@ import planet from '../../assets/images/marsPlanet.png';
 import rocket from '../../assets/images/rocket.png';
 import pathStart from '../../assets/images/pathStart.png';
 import { media } from "../../constants/media";
+import {reachMetrikaGoal} from '../../utils/reachMetrikaGoal';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -42,6 +43,7 @@ const Title = styled.h3`
     color: #fff;
     font-size: ${({$ratio}) => $ratio * 49}px;
     font-size: ${({$ratio}) => $ratio * 45}px;
+    user-select: none;
 `;
 
 const LogoStyled = styled.img`
@@ -78,6 +80,8 @@ const Rocket = styled.img`
     height: ${({$ratio}) => $ratio * 332}px;
     object-fit: contain;
     z-index: 2;
+    pointer-events: none;
+    user-select: none;
 
     ${media.desktop`
         bottom: ${({$ratio}) => $ratio * 13}px;
@@ -95,6 +99,8 @@ const RocketPath = styled.img`
     width: ${({$ratio}) => $ratio * 273}px;
     height: ${({$ratio}) => $ratio * 273}px;
     object-fit: contain;
+    pointer-events: none;
+    user-select: none;
 
     ${media.desktop`
         bottom: -83px;
@@ -107,6 +113,11 @@ const RocketPath = styled.img`
 
 export const Final = () => {
     const ratio = useSizeRatio();
+
+    const handleLink = () => {
+        reachMetrikaGoal('finishplusprogram');
+        window.open('https://fut.ru/s/internship_curiosity', '_blank')
+    };
 
     return (
         <Wrapper $ratio={ratio}>
@@ -123,7 +134,7 @@ export const Final = () => {
                 Ты прошёл большой путь и доказал, что вызовы и испытания тебя не пугают. Настало время стать частью команды, которая создает будущее
                 </p>
             </Block>
-            <Button onClick={() => window.open('https://fut.ru/s/internship_curiosity', '_blank')}>Стать лидером!</Button>
+            <Button onClick={handleLink}>Стать лидером!</Button>
         </Wrapper>
     );
 }

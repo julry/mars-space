@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import {DIRECTIONS, BG_MOVING_DURATION, ITEMS_BLOCK_HEIGHT, dangerous, unskippableId, CRUSH_TEXT_TYPE, withoutQuestionIds, questions, sameObjects} from './constants';
 import {getIsTouchDevice} from '../../../../utils/getIsTouchDevice';
 import { useSizeRatio } from '../../../../contexts/SizeRatioContext';
+import { reachMetrikaGoal } from '../../../../utils/reachMetrikaGoal';
 export const useGame = () => {
     const ratio = useSizeRatio();
 
@@ -164,6 +165,7 @@ export const useGame = () => {
 
     const handleStart = (e) => {
         e.stopPropagation();
+        reachMetrikaGoal('startlevel3');
         const wrapperRect = wrapperRef.current.getBoundingClientRect(); 
         const rocketRect = rocketRef.current.getBoundingClientRect(); 
 

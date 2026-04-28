@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import bg from "../../../../assets/images/level3Bg.png";
 import oil2Desk from '../../../../assets/images/oil2.png';
@@ -14,6 +14,7 @@ import { Button } from "../../../shared/Button";
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { useProgress } from "../../../../contexts/ProgressContext";
 import { CloudBlock } from "../../../shared/LevelCloudBlock";
+import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
 
 const Wrapper = styled.div`
     position: relative;
@@ -36,11 +37,13 @@ const Rocket = styled(motion.img)`
     width: 507px;
     height: 298px;
     right: -61px;
+    user-select: none;
+    pointer-events: none;
 
     @media screen and (min-height: 700px) {
         width: ${507 * 1.4}px;
         height: ${298 * 1.4}px;
-        right: ${-61 * 2.45}px;
+        right: ${-65 * 2.45}px;
         bottom: ${230 * 0.88}px;
     }
 
@@ -60,12 +63,6 @@ const OilPistol = styled(motion.img)`
     bottom: 50px;
     right: -30px;
     z-index: 6;
-
-    // @media screen and (min-height: 700px) {
-    //     width: ${203 * 1.4}px;
-    //     height: ${216 * 1.4}px;
-    //     right: ${-30 * 1.4}px;
-    // }
 
     ${media.desktop`
         display: none;
@@ -151,6 +148,13 @@ const OilBoxWrapper = styled(motion.div)`
     width: 144.5px;
 
 
+    @media screen and (min-height: 700px) {
+        width: ${144.5 * 1.4}px;
+        height: ${68.5 * 1.4}px;
+        right: 105px;
+        bottom: 361px;
+    }
+
     ${media.desktop`
         width: 257px;
         bottom: 259px;
@@ -168,6 +172,11 @@ const OilBox = styled(motion.div)`
     & img {
         width: 144.5px;
         height: 68.5px;
+
+        @media screen and (min-height: 700px) {
+            width: ${144.5 * 1.4}px;
+            height: ${68.5 * 1.4}px;
+        }
 
         ${media.desktop`
             width: 257px;
@@ -245,11 +254,21 @@ export const Level3 = () => {
         };
 
         if (window.innerHeight > 700) {
-            return ({x: -38, y: -76})
+            return ({x: -30, y: -76})
         }
 
         return ({x: -26, y: -70})
     }
+
+    const handleNext = () => {
+        reachMetrikaGoal('finishlevel2');
+        next();
+    };
+
+    const handleLink = () => {
+        reachMetrikaGoal('program1');
+        window.open('https://fut.ru/s/internship_curiosity', '_blank')
+    };
 
     return (
         <Wrapper>
@@ -285,7 +304,7 @@ export const Level3 = () => {
                 dragConstraints={{
                     top: -200,
                     left: -30,
-                    right: 50,
+                    right: 45,
                     bottom: 50,
                 }}
                 drag={!isConnected}
@@ -340,8 +359,8 @@ export const Level3 = () => {
                 )}
                 {isButtonsBlock && (
                     <ButtonsBlock>
-                        <Button onClick={next}>Продолжить полет</Button>
-                        <Button onClick={() => window.open('https://fut.ru/s/internship_curiosity', '_blank')}>к программе</Button>
+                        <Button onClick={handleNext}>Продолжить полет</Button>
+                        <Button onClick={handleLink}>к программе</Button>
                     </ButtonsBlock>
                 )}
             </AnimatePresence>
