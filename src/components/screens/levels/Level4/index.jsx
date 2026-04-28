@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, percent } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,7 @@ import { Button } from "../../../shared/Button";
 import {media} from '../../../../constants/media';
 import { useProgress } from "../../../../contexts/ProgressContext";
 import { useGame } from "./useGame";
-import {CRUSH_TEXT_TYPE, crushTexts, ITEMS_BLOCK_HEIGHT, objects, questions} from './constants';
+import { CRUSH_TEXT_TYPE, crushTexts, ITEMS_BLOCK_HEIGHT, objects } from './constants';
 import { QuestionInteractive } from "./QuestionsInteractive";
 import { getIsTouchDevice } from "../../../../utils/getIsTouchDevice";
 import {reachMetrikaGoal} from '../../../../utils/reachMetrikaGoal';
@@ -115,7 +115,7 @@ const ButtonsBlock = styled.div`
     position: relative;
     z-index: 10;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     justify-content: center;
     width: 100%;
 
@@ -227,7 +227,7 @@ const RightAction = styled(LeftAction)`
 export const Level4 = () => {
     const ratio = useSizeRatio();
     const { next, setProgress } = useProgress();
-    const [isButtonsBlock, setIsButtonsBlock] = useState(false);
+    const [isButtonsBlock, setIsButtonsBlock] = useState(true);
 
     useEffect(() => {
         setProgress(prev => ({...prev, stage: 'space', current: 223, percent: 82, duration: 0}))

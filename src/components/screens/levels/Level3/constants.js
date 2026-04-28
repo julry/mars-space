@@ -1,4 +1,4 @@
-export const DURATION = 10;
+export const DURATION = 8;
 
 export const OIL_DESK_DROP_ZONE = {
     bottom: 173,

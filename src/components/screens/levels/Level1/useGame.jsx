@@ -37,7 +37,7 @@ export const useGame = () => {
         const initialBlockWidth = (window.innerWidth < MIN_MOCKUP_WIDTH ? BLOCK_WIDTH_KOEF : 1) * BLOCK_WIDTH * ratio;
         setBlockWidth(initialBlockWidth);
         initialXRight.current = (window.innerWidth >= MIN_MOCKUP_WIDTH ? MIN_MOCKUP_WIDTH : window.innerWidth) / 2;
-        const gameHeight = (window.innerWidth >= MIN_MOCKUP_WIDTH ? 677 : window.innerHeight);
+        const gameHeight = (window.innerWidth >= MIN_MOCKUP_WIDTH ? Math.min(677, window.innerHeight) : window.innerHeight);
         const spacing = BLOCK_BOTTOM_POSITION * ratio;
         initialXBlock.current = (window.innerWidth >= MIN_MOCKUP_WIDTH ? 255 : scope.current.getBoundingClientRect().left);
         durationK.current = (2 * initialXRight.current) / MIN_MOCKUP_WIDTH;
@@ -46,7 +46,7 @@ export const useGame = () => {
     }, [ratio])
 
     const getYPosition = (index) => {
-        const gameHeight = (window.innerWidth >= MIN_MOCKUP_WIDTH ? 677 : window.innerHeight);
+        const gameHeight = (window.innerWidth >= MIN_MOCKUP_WIDTH ? Math.min(677, window.innerHeight) : window.innerHeight);
         const spacing = (BLOCK_BOTTOM_POSITION + ITEMS[index].top) * ratio;
 
         const bottomPostition = (ITEMS[index].y ?? 0) * ratio;

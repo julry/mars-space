@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import bg from "../../../../assets/images/level3Bg.png";
 import oil2Desk from '../../../../assets/images/oil2.png';
@@ -120,7 +120,7 @@ const ButtonsBlock = styled.div`
     position: relative;
     z-index: 10;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     justify-content: center;
     width: 100%;
 
@@ -352,7 +352,7 @@ export const Level3 = () => {
                 {isEndBlock && !isButtonsBlock && (
                     <>
                         <Block zIndex={10}>
-                            <p>Твоя мотивация — топливо для успешного прохождения видеоинтервью или тестирования. Покажи, что этот челлендж тебе под силу. в Mars любят целеустремленных</p>
+                            <p>Твоя мотивация — топливо для успешного прохождения видеоинтервью или тестирования. Покажи, что этот челлендж тебе под силу. В Mars любят целеустремленных</p>
                         </Block>
                         <Button  zIndex={10} onClick={() => setIsButtonsBlock(true)}>полетели</Button>
                     </>

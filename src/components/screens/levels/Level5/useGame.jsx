@@ -1,5 +1,5 @@
 import {useAnimate, useMotionValue, useMotionValueEvent} from 'framer-motion';
-import {useRef, useState} from 'react';
+import {useLayoutEffect, useRef, useState} from 'react';
 
 import { useSizeRatio } from '../../../../contexts/SizeRatioContext';
 import { useProgress } from '../../../../contexts/ProgressContext';
@@ -35,9 +35,36 @@ export const useGame = () => {
     const isRestarting = useRef(false);
     const finishY = useRef();
     const rocketHeight = useRef();
+    const hiddenTime = useRef();
+
+    useLayoutEffect(() => {
+        if (typeof document === 'undefined') {
+            return undefined;
+        }
+
+        const onVisibilityChange = () => {
+            if (document.hidden) {
+                rocketMovingUp.current?.pause?.();
+                rocketRotate.current?.pause?.();
+                hiddenTime.current = +(new Date());
+
+                return;
+            }
+
+            rocketMovingUp.current?.play?.();
+            rocketRotate.current?.play?.();
+        };
+
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => {
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+        };
+    }, []);
 
     useMotionValueEvent(rocketY, 'change', (latest) => {
-        const y = finishY.current;
+        const addictiveHeight = window.innerHeight < 677 ? 110 : 0;
+        const y = finishY.current - addictiveHeight;
 
         const points = [-10, y * 1 / 3, y * 4.5 / 6];
 
@@ -78,8 +105,11 @@ export const useGame = () => {
         isRestarting.current = true;
         isRotating.current = false;
 
-        duration.current = (+(new Date()) - timeInitial.current) / 1000;
+        const hidden = ((hiddenTime.current ?? timeInitial.current) - timeInitial.current) / 1000;
 
+        duration.current = (+(new Date()) - timeInitial.current) / 1000 - hidden;
+
+        hiddenTime.current = 0;
         animate(layerRef.current, {
                 y: rocketYStart.current,
             },
