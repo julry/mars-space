@@ -4,10 +4,10 @@ import { useSizeRatio } from "../../contexts/SizeRatioContext";
 import { Block } from "../shared/Block";
 import { Button } from "../shared/Button";
 import { useProgress } from "../../contexts/ProgressContext";
-import bg from '../../assets/images/startBg.png';
-import planet from '../../assets/images/marsPlanet.png';
-import rocket from '../../assets/images/rocket.png';
-import pathStart from '../../assets/images/pathStart.png';
+import bg from '../../assets/images/startBg.webp';
+import planet from '../../assets/images/marsPlanet.webp';
+import rocket from '../../assets/images/rocket.webp';
+import pathStart from '../../assets/images/pathStart.webp';
 import { media } from "../../constants/media";
 import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 

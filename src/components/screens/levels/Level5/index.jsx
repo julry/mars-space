@@ -1,8 +1,8 @@
 import {AnimatePresence, motion, percent} from 'framer-motion';
 import styled from "styled-components";
-import path from '../../../../assets/images/pathSm.png';
-import bg from '../../../../assets/images/level5Bg.png';
-import rocket from '../../../../assets/images/rocket.png';
+import path from '../../../../assets/images/pathSm.webp';
+import bg from '../../../../assets/images/level5Bg.webp';
+import rocket from '../../../../assets/images/rocket.webp';
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";

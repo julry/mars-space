@@ -1,9 +1,9 @@
 import styled, { keyframes } from "styled-components";
 import {AnimatePresence, motion, percent} from 'framer-motion';
-import bg from "../../../../assets/images/level2Bg.png";
-import station from '../../../../assets/images/stationLevel2.png';
-import oil1 from '../../../../assets/images/oil1.png';
-import oil2 from '../../../../assets/images/oil2.png';
+import bg from "../../../../assets/images/level2Bg.webp";
+import station from '../../../../assets/images/stationLevel2.webp';
+import oil1 from '../../../../assets/images/oil1.webp';
+import oil2 from '../../../../assets/images/oil2.webp';
 import { media } from "../../../../constants/media";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CORRECT_COLOR, ERROR_COLOR, questions, SCENE_ZOOM } from "./constants";

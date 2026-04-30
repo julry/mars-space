@@ -1,8 +1,8 @@
 import { motion, percent } from "framer-motion";
 import styled from "styled-components";
-import bg from '../../../../assets/images/level3Finish.png';
-import path from '../../../../assets/images/pathLong.png';
-import rocket from '../../../../assets/images/rocket.png';
+import bg from '../../../../assets/images/level3Finish.webp';
+import path from '../../../../assets/images/pathLong.webp';
+import rocket from '../../../../assets/images/rocket.webp';
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { useProgress } from "../../../../contexts/ProgressContext";
 import { useEffect } from "react";

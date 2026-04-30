@@ -1,9 +1,9 @@
-import aster1 from "../../../../assets/images/aster1.png";
-import aster2 from "../../../../assets/images/aster2.png";
-import aster3 from "../../../../assets/images/aster3.png";
-import trash1 from "../../../../assets/images/trash1.png";
-import trash2 from "../../../../assets/images/trash2.png";
-import trash3 from "../../../../assets/images/trash3.png";
+import aster1 from "../../../../assets/images/aster1.webp";
+import aster2 from "../../../../assets/images/aster2.webp";
+import aster3 from "../../../../assets/images/aster3.webp";
+import trash1 from "../../../../assets/images/trash1.webp";
+import trash2 from "../../../../assets/images/trash2.webp";
+import trash3 from "../../../../assets/images/trash3.webp";
 
 export const CORRECT_COLOR = "#B7FF3F";
 export const ERROR_COLOR = "#FF353D";

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import logo from '../../assets/images/logo.svg';
-import progressBar from '../../assets/images/progressBar.png';
-import progressBarFull from '../../assets/images/progressBarFull.png';
-import progressIcon from '../../assets/images/progressIcon.png';
+import progressBar from '../../assets/images/progressBar.webp';
+import progressBarFull from '../../assets/images/progressBarFull.webp';
+import progressIcon from '../../assets/images/progressIcon.webp';
 
 import { useSizeRatio } from "../../contexts/SizeRatioContext";
 import { media } from "../../constants/media";

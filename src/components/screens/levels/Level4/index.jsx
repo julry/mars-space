@@ -2,11 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-import path from '../../../../assets/images/pathSm.png';
-import bg from '../../../../assets/images/level4Bg.png';
-import rocket from '../../../../assets/images/rocket.png';
+import path from '../../../../assets/images/pathSm.webp';
+import bg from '../../../../assets/images/level4Bg.webp';
+import rocket from '../../../../assets/images/rocket.webp';
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
-import crush from "../../../../assets/images/crush.png";
+import crush from "../../../../assets/images/crush.webp";
 
 import { Block } from "../../../shared/Block";
 import { Button } from "../../../shared/Button";
@@ -227,7 +227,7 @@ const RightAction = styled(LeftAction)`
 export const Level4 = () => {
     const ratio = useSizeRatio();
     const { next, setProgress } = useProgress();
-    const [isButtonsBlock, setIsButtonsBlock] = useState(true);
+    const [isButtonsBlock, setIsButtonsBlock] = useState(false);
 
     useEffect(() => {
         setProgress(prev => ({...prev, stage: 'space', current: 223, percent: 82, duration: 0}))

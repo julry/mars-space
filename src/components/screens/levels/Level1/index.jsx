@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { AnimatePresence, motion, } from "framer-motion";
-import bg from '../../../../assets/images/bgLevel1.png';
-import path from '../../../../assets/images/pathLong.png';
-import bgDesk from '../../../../assets/images/bgLevel1Desk.png';
+import bg from '../../../../assets/images/bgLevel1.webp';
+import path from '../../../../assets/images/pathLong.webp';
+import bgDesk from '../../../../assets/images/bgLevel1Desk.webp';
 import { media } from "../../../../constants/media";
 import { useSizeRatio } from "../../../../contexts/SizeRatioContext";
 import { Modal } from "../../../shared/Modal";

@@ -1,15 +1,15 @@
-import part1 from "../../../../assets/images/part1.png";
-import part2 from "../../../../assets/images/part2.png";
-import part3 from "../../../../assets/images/part3.png";
-import part4 from "../../../../assets/images/part4.png";
-import part5 from "../../../../assets/images/part5.png";
-import part6 from "../../../../assets/images/part6.png";
-import hold1 from "../../../../assets/images/hold1.png";
-import hold2 from "../../../../assets/images/hold2.png";
-import hold3 from "../../../../assets/images/hold3.png";
-import hold4 from "../../../../assets/images/hold4.png";
-import hold5 from "../../../../assets/images/hold5.png";
-import hold6 from "../../../../assets/images/hold6.png";
+import part1 from "../../../../assets/images/part1.webp";
+import part2 from "../../../../assets/images/part2.webp";
+import part3 from "../../../../assets/images/part3.webp";
+import part4 from "../../../../assets/images/part4.webp";
+import part5 from "../../../../assets/images/part5.webp";
+import part6 from "../../../../assets/images/part6.webp";
+import hold1 from "../../../../assets/images/hold1.webp";
+import hold2 from "../../../../assets/images/hold2.webp";
+import hold3 from "../../../../assets/images/hold3.webp";
+import hold4 from "../../../../assets/images/hold4.webp";
+import hold5 from "../../../../assets/images/hold5.webp";
+import hold6 from "../../../../assets/images/hold6.webp";
 
 export const LEAVE_DURATION_SEC = 1.3;
 export const FULL_MOVE_SEC = 4.5;

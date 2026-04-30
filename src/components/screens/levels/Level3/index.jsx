@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import bg from "../../../../assets/images/level3Bg.png";
-import oil2Desk from '../../../../assets/images/oil2.png';
-import oil2 from '../../../../assets/images/level3Oil.png';
-import oil from '../../../../assets/images/level3BoxOil.png';
-import rocket from '../../../../assets/images/level3Rocket_box.png';
-import rocketStart from '../../../../assets/images/level3Rocket.png';
+import bg from "../../../../assets/images/level3Bg.webp";
+import oil2Desk from '../../../../assets/images/oil2.webp';
+import oil2 from '../../../../assets/images/level3Oil.webp';
+import oil from '../../../../assets/images/level3BoxOil.webp';
+import rocket from '../../../../assets/images/level3Rocket_box.webp';
+import rocketStart from '../../../../assets/images/level3Rocket.webp';
 import { media } from "../../../../constants/media";
 import { DURATION, OIL_DESK_DROP_ZONE, OIL_DROP_ZONE, phrases } from "./constants";
 import { Block } from "../../../shared/Block";
